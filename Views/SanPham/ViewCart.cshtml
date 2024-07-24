@@ -1,0 +1,102 @@
+﻿@model List<TuiXach.ViewModel.SanPhamViewModel>
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["Username"] != null)
+{
+    if (Model != null && Model.Any())
+    {
+        <div class="checkout-spad">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="checkout_order">
+                        <h4>GIỎ HÀNG</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Size</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (var i = 0; i < Model.Count; i++)
+                                {
+                                    var item = Model[i];
+                                    var tongTien = item.Gia * item.SoLuong;
+                              
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>@item.TenSanPham</td>
+                                        <td><img src="~/image/@item.HinhAnh" style="width: 100px; height: auto;" /></td>
+                                        <td>@item.Size</td>
+                                        <td>@item.Gia VND</td>
+                                        <td>@item.SoLuong</td>
+                                        <td>@tongTien VND</td>
+                                        <td>
+                                            @using (Html.BeginForm("RemoveFromCart", "SanPham", FormMethod.Post))
+                                            {
+                                                <input type="hidden" name="SanPhamID" value="@item.SanPhamID" />
+                                                <input type="hidden" name="SizeID" value="@item.SizeID" />
+                                                <button type="submit" class="btn btn-danger">Xóa</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="checkout_order_total">
+                            Tổng số tiền cần thanh toán: <span style="color: orangered">@Model.Sum(item => item.Gia * item.SoLuong) VND</span>
+                        </div>
+                        <div class="buttons" style="margin-top: 20px;">
+                            @using (Html.BeginForm("Checkout", "Checkout", FormMethod.Post))
+                            {
+                                <button type="submit" class="btn btn-success">Thanh toán</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <style>
+            .hinh_anh {
+                text-align: center;
+                padding: 10px 0px;
+            }
+        </style>
+
+        <div class="hinh_anh">
+            <img src="~/image/banner-gioi-thieu.jpg" style="width: 850px">
+        </div>
+        <div class="hien_chu" style="margin-top: 50px; text-align:center">
+            <h2>Giỏ hàng của bạn đang trống!</h2>
+        </div>
+    }
+}
+else
+{
+    <style>
+        .hinh_anh {
+            text-align: center;
+            padding: 10px 0px;
+        }
+    </style>
+
+    <div class="hinh_anh">
+        <img src="~/image/banner-gioi-thieu.jpg" style="width: 850px">
+    </div>
+    <div class="hien_chu" style="margin-top: 50px; text-align:center">
+        <h2>Vui lòng đăng nhập để xem giỏ hàng của bạn!</h2>
+    </div>
+}

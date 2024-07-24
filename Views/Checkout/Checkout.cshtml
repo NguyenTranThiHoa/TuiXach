@@ -1,0 +1,117 @@
+﻿@model TuiXach.ViewModel.CheckoutViewModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .checkout-form-left {
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    .checkout.input {
+        padding: 12px 30px;
+        margin-left: 20px;
+    }
+</style>
+<div class="about_name">
+    <h2>THÔNG TIN ĐẶT HÀNG SẢN PHẨM</h2>
+</div>
+<div class="checkout_spad">
+    <div class="checkout_form">
+        @using (Html.BeginForm("ProcessCheckout", "Checkout", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            <div class="checkout-form-left">
+                <h4 style="font-size:30px; text-align:center; padding: 10px 0px">Thông tin khách hàng</h4>
+                <div class="row" style="margin: 0px 25px;">
+                    <div class="col-lg-3">
+                        <div class="checkout_input">
+                            <p>Họ và tên</p>
+                            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Nhập họ và tên" })
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="checkout_input">
+                            <p>Số điện thoại:</p>
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="checkout_input">
+                            <p>Địa chỉ nhận hàng</p>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control checkout_input_add", placeholder = "Địa chỉ" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="checkout_input">
+                            <p>Email:</p>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập email" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout_input" style="margin-top: 20px; margin-left: 50px;padding-bottom: 20px; font-weight: bold">
+                    @Html.RadioButtonFor(m => m.PaymentMethod, "CashOnDelivery") Khách hàng vui lòng thanh toán khi nhận hàng!
+                </div>
+            </div>
+
+            <div class="checkout-form-right">
+                <div class="checkout_order">
+                    <h4 style="font-size:30px; text-align:center; padding: 5px 0px">Đơn đặt hàng</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Hình ảnh</th>
+                                <th>Size</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.CartItems.Count; i++)
+                            {
+                                var item = Model.CartItems[i];
+                                var tongTien = item.Gia * item.SoLuong;
+
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@item.TenSanPham</td>
+                                    <td><img src="~/image/@item.HinhAnh" style="width: 100px; height: auto;" alt="@item.TenSanPham" /></td>
+                                    <td>@item.Size</td>
+                                    <td>@item.Gia VND</td>
+                                    <td>@item.SoLuong</td>
+                                    <td>@tongTien VND</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="checkout_order_total">
+                        <p>Tổng số tiền cần thanh toán: <span style="color: orangered; margin-left: 20px;">@Model.TongTien VND</span></p>
+                    </div>
+
+                    <div class="buttons" style="margin-top: 20px; margin-right:550px; ">
+                        <button type="submit" class="btn btn-success" style="padding: 10px 50px; font-weight: bold">Đặt hàng</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

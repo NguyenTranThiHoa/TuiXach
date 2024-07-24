@@ -1,0 +1,64 @@
+﻿/* Shared styles for both checkout and checkout_form */
+.checkout {
+    margin-top: 20px;
+}
+
+.checkout_spad,
+.checkout_form {
+    width: 100%;
+/*    margin-left: auto;
+    margin-right: auto;*/
+}
+
+
+.checkout_spad {
+    margin-bottom: 50px;
+    box-sizing: content-box;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 50px 0;
+}
+
+.checkout.input {
+    padding: 12px 30px;
+}
+
+.checkout_form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form-left {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    padding-right: 10px;
+    background-color: #f9f9f9;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.checkout_order {
+    width: max-content;
+}
+
+.checkout-form-right {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    padding-left: 80px;
+    margin-bottom: 50px;
+    margin-right: 220px;
+}
+
+@media (max-width: 800px) {
+    .checkout-form-left,
+    .checkout-form-right {
+        width: 100%;
+        padding: 0; /* Remove padding on small screens */
+    }
+}

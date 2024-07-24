@@ -1,0 +1,9 @@
+﻿@model IEnumerable<TuiXach.Models.PhanLoai>
+
+<ul class="submenu" style="background-color: cadetblue;">
+    @foreach (var item in Model)
+    {
+        <li><a href="@Url.Action("SanPham", "SanPham", new { id = item.PhanLoaiID })">@item.TenPhanLoai</a></li>
+    }
+</ul>
+

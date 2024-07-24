@@ -1,0 +1,155 @@
+﻿@model IEnumerable<TuiXach.Models.Order>
+@{
+    ViewBag.Title = "ListOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+</style>
+<div class="about_name">
+    <h2>DANH SÁCH ĐƠN HÀNG</h2>
+</div>
+<!------------------------------------------------------------------------>
+<style>
+    .Processing, .Confirmed, .Shipping, .Delivered, .Cancelled {
+        display: block;
+    }
+
+    .Processing {
+        background-color: orange;
+    }
+
+    .Confirmed {
+        background-color: yellowgreen;
+    }
+
+    .Shipping {
+        background-color: lightblue;
+    }
+
+    .Delivered {
+        background-color: green;
+    }
+
+    .Cancelled {
+        background-color: red;
+    }
+
+    .card {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .table th {
+            background-color: #93aa65;
+            color: black;
+        }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        text-decoration: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-warning1 {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .btn-warning2 {
+        background-color: #007bff;
+        color: #212529;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .pending {
+        color: orange;
+    }
+
+    .completed {
+        color: green;
+    }
+</style>
+<!------------------------------------------------------------------------------------------------------->
+<div>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Ngày đặt</th>
+                            <th>Trạng thái đơn hàng</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var order = Model.ElementAt(i);
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@order.OrderID</td>
+                                <td>@order.CustomerID</td>
+                                <td>@order.NgayDat.ToString()</td>
+                                <td>
+                                    @order.TrangThaiDonHang
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning1" href="@Url.Action("Details", new { id = order.OrderID })">Xem</a>
+                                    <a class="btn btn-warning2" href="@Url.Action("Cancel", new { id = order.OrderID })">Hủy</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

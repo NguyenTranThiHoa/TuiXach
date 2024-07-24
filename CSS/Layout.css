@@ -1,0 +1,231 @@
+﻿.Name_logo img{
+    position: absolute;
+    display:flex;
+}
+
+.header {
+    box-sizing: border-box;
+    overflow: hidden;
+}
+header {
+    position: fixed; /* Đặt phần header ở vị trí cố định */
+    top: 0; /* Đặt phần header bắt đầu từ đỉnh trang */
+    width: 100%; /* Chiều rộng của header bằng 100% */
+    z-index: 1000; /* Đảm bảo header hiển thị trên các phần khác */
+    background-color: antiquewhite; /* Màu nền cho header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng cho header */
+}
+
+/******************************/
+.timkiem {
+    margin-left: 100px;
+    display: flex;
+    align-items: center;
+    padding: 20px 0px;
+    height: 80px;
+}
+
+.input-timkiem {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+    max-width: 450px;
+}
+
+.btn_timkiem {
+    background-color:burlywood;
+    color: white; 
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn_timkiem:hover {
+    background-color: #45a049; /* Màu nền khi rê chuột vào nút */
+}
+
+.input-timkiem:hover {
+    border:1px solid;
+}
+
+.input-timkiem, .btn_timkiem {
+    height: 100%;
+    border-radius: 4px;
+}
+
+.timkiem {
+    overflow: hidden;
+}
+
+.btn_buy {
+    text-align: center;
+    padding: 9px 12px;
+    background-color: antiquewhite;
+    margin-left: 70px;
+    border-radius: 4px;
+    border: 2px;
+    position: relative;
+    bottom: 10px;
+}
+
+/**********************************/
+.dropdown-content a {
+    border-radius: 6px;
+    color: black;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.dropdown-content a:hover {
+    background-color: #efefca;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    z-index: 1;
+    min-width: 140px;
+    top: 60%; /* Đặt vị trí dưới phần "Tài khoản" */
+    left: 0; /* Căn chỉnh bên trái */
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.hienthi:hover .dropdown-content {
+    display: block;
+}
+
+.col-3 {
+    position: relative;
+}
+
+/***********************/
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 5px 130px;
+    background-color: seashell;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    display: flex;
+    z-index: 10;
+}
+
+.menu .list-product:hover .submenu {
+    display: block;
+}
+
+.submenu {
+    position: absolute;
+    list-style-type: none;
+    padding: 0;
+    display: none;
+    margin-top: 10px;
+}
+.menu li a {
+    display: block;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.menu li {
+    padding: 14px 16px;
+}
+.menu > li:last-child {
+    margin-inline: auto 100px;
+}
+.menu > li:hover {
+    border-bottom: 2px solid black;
+}
+
+/***************************/
+.container {
+    margin-top: 100px; /* Dịch chuyển nội dung xuống phía dưới để tránh bị che bởi phần header */
+}
+/***************************/
+.tieude1 {
+    list-style: none;
+    padding-top: 40px;
+    margin: 0;
+    color: black;
+}
+
+.tieude1 li {
+    color: black;
+    font-size: 16px;
+    margin: 12px 0;
+    list-style: none;
+}
+
+.tieude1 li i {
+    margin-right: 10px;
+    color: black;
+}
+
+/***********************************/
+
+.footer-content {
+    padding: 20px;
+}
+
+.tieude {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: black;
+}
+
+.header-item {
+    text-align: center;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.location-header {
+    text-align: left;
+    color: #D3C734;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.tieude li {
+    color: black;
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.tieude li i {
+    margin-right: 10px;
+    color: #D3C734;
+}
+
+.email-link {
+    color: burlywood;
+    text-decoration: none;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+}
+
+/***************************************************************/
+

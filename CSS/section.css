@@ -1,0 +1,55 @@
+﻿.anh {
+    float: left;
+    width: 24.99999%;
+    padding: 0 6px;
+}
+
+.anh_tiep {
+    border: 1px solid #ccc;
+    overflow: hidden;
+    transition: .5s ease;
+    position: relative;
+}
+
+.anh_tiep:hover {
+    border: 1px solid #777;
+}
+
+.anh_tiep img {
+    width: 100%;
+    height: 380px;
+    transition: transform 0.5s ease;
+}
+
+.anh_tiep:hover img {
+    transform: scale(1.1);
+}
+
+.desc {
+    padding: 15px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 700px) {
+    .anh {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .anh {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/********************************/
+

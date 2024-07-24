@@ -1,0 +1,146 @@
+﻿@using TuiXach.ViewModel
+@model SanPhamViewModel
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .ten {
+        font-family: 'Times New Roman';
+        font-size: 20px;
+    }
+
+    .phan_loai {
+        font-family: 'Times New Roman';
+        font-size: 20px;
+    }
+
+    .mota {
+        font-family: 'Times New Roman';
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .dac_diem_noi_bat {
+        font-family: 'Times New Roman';
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .gia_ban {
+        font-family: 'Times New Roman';
+        font-size: 20px;
+        font-weight: bold;
+    }
+    /************************/
+    .quantity-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    .quantity-button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .quantity-button:hover {
+        background-color: #0056b3;
+    }
+
+    #quantity {
+        width: 50px;
+        text-align: center;
+        border: none;
+        font-size: 18px;
+        margin: 0;
+        padding: 10px 0px;
+        pointer-events: none;
+        background-color: #f0f0f0;
+    }
+</style>
+<div class="about_name">
+    <h2>THÔNG TIN CHI TIẾT SẢN PHẨM</h2>
+</div>
+<div class="chitietsanpham" style="overflow:hidden; margin-top: 20px">
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+            <div class="anh" style="margin-left: 50px; padding: 60px 0px;">
+                <img src="@Url.Content("~/image/" + Model.HinhAnh)" style="width: 300px" />
+            </div>
+        </div>
+        <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <div class="ten">
+                Tên sản phẩm: <strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #3d571f">@Model.TenSanPham</strong>
+            </div>
+            <div class="phan_loai">Phân loại sản phẩm: <strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #3d571f">@Model.TenPhanLoai</strong></div>
+            <div class="gia_ban">
+                Giá bán: <strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #e45622; margin-left: 20px;">@Model.Gia VND</strong>
+            </div>
+            <div class="mota">
+                Mô tả sản phẩm:
+                <p style="font-weight: normal; font-size: 18px; font-family:Arial; padding: 10px 0px 0px 0px ">@Model.MoTa</p>
+            </div>
+            <div class="dac_diem_noi_bat">
+                Đặc điểm nổi bật:
+                <p style="font-weight: normal; font-size: 18px; font-family: Arial; padding: 10px 0px 0px 0px">
+                    Chất liệu: Da PU cao cấp, bền đẹp và dễ dàng vệ sinh.<br />
+                    Kích thước: Rộng 30cm x Cao 25cm x Sâu 15cm, phù hợp để chứa điện thoại, ví tiền, mỹ phẩm và các vật dụng cá nhân khác.<br />
+                    Thiết kế: Kiểu dáng thời trang với nhiều ngăn tiện lợi, khóa kéo chắc chắn, quai đeo vai êm ái có thể điều chỉnh độ dài. <br />
+                    Màu sắc: Đa dạng màu sắc như đen, nâu, trắng, đỏ, xanh, giúp bạn dễ dàng phối đồ.<br />
+                    Phù hợp: Hoàn hảo cho đi làm, đi chơi, dự tiệc hay các dịp dạo phố.
+                </p>
+            </div>
+            <div class="nut" style="padding: 25px 0px">
+                @using (Html.BeginForm("AddToCart", "SanPham", FormMethod.Post))
+                {
+                    <input type="hidden" name="sanPhamID" value="@Model.SanPhamID" />
+                    <div class="form-group">
+                        <label for="size">Size:</label>
+                        @foreach (var size in Model.SizeList)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="sizeID" value="@size.Value" />
+                                <label class="form-check-label">@size.Text</label>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity" id="quantity" value="1" class="form-control" min="1" />
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        Thêm vào giỏ hàng
+                    </button>
+                }
+            </div>
+      
+        </div>
+    </div>
+</div>

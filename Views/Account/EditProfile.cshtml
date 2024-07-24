@@ -1,0 +1,113 @@
+﻿@model TuiXach.Models.Customer
+
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!---------Chỉnh sửa tài khoản người dùng----------->
+<style>
+    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .bao_phu {
+        margin-top: 20px;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 20px;
+    }
+
+    .hinh_anh {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .hinh_anh img {
+        width: 250px;
+        height: 310px;
+        padding: 20px 30px;
+    }
+
+    .chinh_sua label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .chinh_sua input {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+        border-radius: 4px;
+        border: 0.5px solid;
+    }
+
+    .button_luu {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
+
+<div class="about_name">
+    <h2>TÀI KHOẢN NGƯỜI DÙNG</h2>
+</div>
+
+@using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.CustomerID)
+    <div class="bao_phu">
+        <div class="row">
+            <div class="col-5" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="hinh_anh">
+                    <img src="~/image/Anh_nguoi_dung/@Model.ProfileImage" alt="Profile Image">
+                </div>
+                <input type="file" id="ProfilePicture" name="ProfilePicture">
+            </div>
+            <div class="col-7">
+                <div class="chinh_sua">
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="FullName">Name:</label>
+                            @*@Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })*@
+
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+
+                            <label for="Email">Email:</label>
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type = "email" })
+
+                            <label for="SoDienThoai">Số điện thoại:</label>
+                            @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control" })
+
+                            <label for="DiaChi">Địa chỉ:</label>
+                            @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+                        </div>
+                        <div class="col-6">
+                            <label for="NgaySinh">Ngày sinh:</label>
+                            @Html.TextBoxFor(model => model.NgaySinh, new { @class = "form-control", type = "date" })
+
+                            <label for="Username">Username:</label>
+                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+
+                            <label for="Password">Password:</label>
+                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button_luu">
+                <button type="submit" style="padding: 8px 20px; background-color:cadetblue; border-radius:8px; font-family:'Times New Roman', Times, serif; font-size:16px;">Lưu thông tin</button>
+            </div>
+        </div>
+    </div>
+}
