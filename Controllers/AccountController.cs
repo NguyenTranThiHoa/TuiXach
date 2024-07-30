@@ -190,7 +190,7 @@ namespace TuiXach.Controllers
                     if (ProfilePicture != null && ProfilePicture.ContentLength > 0)
                     {
                         string fileName = Path.GetFileName(ProfilePicture.FileName);
-                        string path = Path.Combine(Server.MapPath("~/image/Anh_nguoi_dung/"), fileName);
+                        string path = Path.Combine(Server.MapPath("~/image/anh_logo_lienhe/thihoa.jpg"), fileName);
                         ProfilePicture.SaveAs(path);
                         customer.ProfileImage = fileName;
                     }

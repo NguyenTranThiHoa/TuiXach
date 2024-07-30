@@ -16,12 +16,16 @@ namespace TuiXach.Controllers
         private TuiXachShop db = new TuiXachShop();
         public ActionResult Index()
         {
-            var lstProducts = (from p in db.SanPhams
-                               where p.PhanLoaiID == 2  // Thay đổi phân loại nếu cần
-                               orderby p.Gia descending
-                               select p).ToList();
+            int phanLoaiID = 2;
 
-            return View(lstProducts); // Đảm bảo là List<SanPham>
+            var products = db.SanPhams
+                .Where(p => p.PhanLoaiID == phanLoaiID)
+                .GroupBy(p => p.TenSanPham) // Nhóm theo cả tên sản phẩm và SizeID
+                .Select(g => g.OrderBy(p => p.SizeID).FirstOrDefault())
+                .OrderByDescending(p => p.Gia) // Sắp xếp theo giá giảm dần
+                .ToList();
+
+            return View(products);
         }
 
         public ActionResult LienHe()
@@ -57,12 +61,17 @@ namespace TuiXach.Controllers
 
         public ActionResult UuDai()
         {
-            var lstProducts = (from p in db.SanPhams
-                               where p.PhanLoaiID == 2  // Thay đổi phân loại nếu cần
-                               orderby p.Gia descending
-                               select p).ToList();
+            int phanLoaiID = 4;
 
-            return View(lstProducts); // Đảm bảo là List<SanPham>
+            var products = db.SanPhams
+                .Where(p => p.PhanLoaiID == phanLoaiID)
+                .GroupBy(p => p.TenSanPham) // Nhóm theo cả tên sản phẩm và SizeID
+                .Select(g => g.OrderBy(p => p.SizeID).FirstOrDefault())
+                .OrderByDescending(p => p.Gia) // Sắp xếp theo giá giảm dần
+                .ToList();
+
+            return View(products);
         }
+
     }
 }

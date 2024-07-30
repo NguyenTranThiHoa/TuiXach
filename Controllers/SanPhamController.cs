@@ -20,10 +20,22 @@ namespace TuiXach.Controllers
         {
             return View();
         }
+        //public ActionResult SanPham(int id)
+        //{
+        //    var products = db.SanPhams.Where(p => p.PhanLoaiID == id).OrderByDescending(p => p.Gia).ToList();
+        //    ViewBag.soluong = products.Count();
+        //    return View(products);
+        //}
+
         public ActionResult SanPham(int id)
         {
-            var products = db.SanPhams.Where(p => p.PhanLoaiID == id).OrderByDescending(p => p.Gia).ToList();
-            ViewBag.soluong = products.Count();
+            var products = db.SanPhams
+                .Where(p => p.PhanLoaiID == id)
+                .GroupBy(p => p.TenSanPham)
+                .Select(g => g.OrderBy(p => p.SizeID).FirstOrDefault()) // Chọn sản phẩm đầu tiên theo SizeID trong mỗi nhóm
+                .OrderByDescending(p => p.Gia)
+                .ToList();
+
             return View(products);
         }
 
