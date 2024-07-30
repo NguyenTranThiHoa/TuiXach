@@ -144,6 +144,7 @@
     <Compile Include="Models\TuiXachShop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\CheckoutViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\SanPhamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <Content Include="CSS\Layout.css" />
     <Content Include="CSS\section.css" />
     <Content Include="CSS\Login_Register.css" />
+    <Content Include="CSS\ViewOrder.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -179,7 +181,64 @@
     <Content Include="image\anh_logo_lienhe\anh2.png" />
     <Content Include="image\anh_logo_lienhe\anh3.png" />
     <Content Include="image\anh_logo_lienhe\anh4.png" />
+    <Content Include="image\anh_logo_lienhe\banner-dat-di-cho-chi.jpg" />
+    <Content Include="image\anh_logo_lienhe\banner-thong-bao-gio-lam-viec.png" />
     <Content Include="image\Anh_thihoa\1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_10.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_11.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_7.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_8.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_9.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_10.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_11.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_7.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_8.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai2_9.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai3_7.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai4_7.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_2.jpeg" />
+    <Content Include="image\Anh_tuixach\phanloai5_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai5_7.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_1.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_2.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_3.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_5.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_6.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai6_7.jpg" />
     <Content Include="image\banner-gioi-thieu.jpg" />
     <Content Include="image\banner_1.png" />
     <Content Include="image\cart.jpg" />
@@ -266,13 +325,13 @@
     <Content Include="Views\SanPham\ChiTietSanPham.cshtml" />
     <Content Include="Views\SanPham\ViewCart.cshtml" />
     <Content Include="Views\Checkout\Checkout.cshtml" />
-    <Content Include="Views\Checkout\OrderConfirmation.cshtml" />
     <Content Include="Views\Checkout\OrderSuccess.cshtml" />
     <Content Include="Views\DonHang\ListOrder.cshtml" />
+    <Content Include="Views\DonHang\ViewOrders.cshtml" />
+    <Content Include="Views\Home\UuDai.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="image\Anh_nguoi_dung\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

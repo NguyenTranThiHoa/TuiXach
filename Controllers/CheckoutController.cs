@@ -25,7 +25,6 @@ namespace TuiXach.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // Lấy thông tin khách hàng dựa trên Username lưu trong Session
             var username = Session["Username"]?.ToString();
             var customer = db.Customers.FirstOrDefault(c => c.Username == username);
 
@@ -68,7 +67,7 @@ namespace TuiXach.Controllers
             var order = new Order
             {
                 CustomerID = customer.CustomerID,
-                TrangThaiDonHang = "Pending",
+                TrangThaiDonHang = "Đã gửi đơn hàng",
                 NgayDat = DateTime.Now
             };
             db.Orders.Add(order);
@@ -90,10 +89,9 @@ namespace TuiXach.Controllers
             }
             db.SaveChanges();
 
-            // Xóa giỏ hàng sau khi thanh toán
             Session["Cart"] = null;
 
-            return RedirectToAction("OrderSuccess", new { orderID = order.OrderID });
+            return RedirectToAction("OrderSuccess");
         }
 
         public ActionResult OrderSuccess()

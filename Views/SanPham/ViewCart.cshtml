@@ -7,7 +7,7 @@
 
 @if (Session["Username"] != null)
 {
-    if (Model != null && Model.Any())
+    if (Model != null && Model.Count > 0)
     {
         <div class="checkout-spad">
             <div class="row">
@@ -32,15 +32,15 @@
                                 {
                                     var item = Model[i];
                                     var tongTien = item.Gia * item.SoLuong;
-                              
+
                                     <tr>
                                         <td>@(i + 1)</td>
                                         <td>@item.TenSanPham</td>
-                                        <td><img src="~/image/@item.HinhAnh" style="width: 100px; height: auto;" /></td>
+                                        <td><img src="~/image/Anh_tuixach/@item.HinhAnh" style="width: 100px; height: auto;" /></td>
                                         <td>@item.Size</td>
-                                        <td>@item.Gia VND</td>
+                                        <td>@Html.FormatValue(item.Gia, "{0:#,###}") VND</td>
                                         <td>@item.SoLuong</td>
-                                        <td>@tongTien VND</td>
+                                        <td>@Html.FormatValue(tongTien, "{0:#,###}") VND</td>
                                         <td>
                                             @using (Html.BeginForm("RemoveFromCart", "SanPham", FormMethod.Post))
                                             {
@@ -54,7 +54,7 @@
                             </tbody>
                         </table>
                         <div class="checkout_order_total">
-                            Tổng số tiền cần thanh toán: <span style="color: orangered">@Model.Sum(item => item.Gia * item.SoLuong) VND</span>
+                            Tổng số tiền cần thanh toán: <span style="color: orangered">@Html.FormatValue(Model.Sum(item => item.Gia * item.SoLuong), "{0:#,###}") VND</span>
                         </div>
                         <div class="buttons" style="margin-top: 20px;">
                             @using (Html.BeginForm("Checkout", "Checkout", FormMethod.Post))

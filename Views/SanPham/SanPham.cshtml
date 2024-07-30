@@ -145,10 +145,10 @@
 </div>
 
 <hr style=" font-size: 50px">
-<p style="color: #4839a5; text-align:center; font-size: 30px">Tổng sản phẩm hiện có là: <strong>@ViewBag.soluong</strong></p>
+@*<p style="color: #4839a5; text-align:center; font-size: 30px">Tổng sản phẩm hiện có là: <strong>@ViewBag.soluong</strong></p>*@
 
 <div class="tuido">
-    @if (Model != null)
+    @if (Model != null && Model.Any())
     {
         foreach (var product in Model)
         {
@@ -156,14 +156,14 @@
                 <div class="anh">
                     <div class="anh_tiep">
                         <a href="@Url.Action("ChiTietSanPham","SanPham", new {@maSanPham = product.SanPhamID})" title="Xem chi tiết">
-                            <img src="~/image/@product.HinhAnh" alt="anh1" width="600" height="400">
+                            <img src="~/image/Anh_tuixach/@product.HinhAnh" alt="anh1" width="600" height="400">
                         </a>
                         <div class="name" style="text-align:center; margin-top: 20px">@product.TenSanPham</div>
                         <div class="desc" style="font-weight: bold">@Html.FormatValue(product.Gia, "{0:#,###}") </div>
-                        <button class="btn_buy" style="text-align:center; padding: 9px 12px; background-color:antiquewhite; margin-left:50px; border-radius: 4px; border: 2px; position:relative; bottom:10px; ">
+                        @*<button class="btn_buy" style="text-align:center; padding: 9px 12px; background-color:antiquewhite; margin-left:50px; border-radius: 4px; border: 2px; position:relative; bottom:10px; ">
                             <i class="bi bi-cart-fill" style=" font-weight: bold;"></i>
                             Thêm vào giỏ hàng
-                        </button>
+                        </button>*@
                     </div>
                 </div>
             </div>

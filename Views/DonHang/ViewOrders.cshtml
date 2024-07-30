@@ -1,0 +1,99 @@
+﻿@model TuiXach.ViewModel.CheckoutViewModel
+
+@{
+    ViewBag.Title = "ViewOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #93aa65;
+    }
+
+    .customer-info {
+        margin-bottom: 20px;
+    }
+
+    .tongtien {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="about_name">
+    <h2>CHI TIẾT ĐƠN HÀNG</h2>
+</div>
+
+<div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-4">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Thông tin khách hàng -->
+                <div class="customer-info">
+                    <div class="mb-2"><strong>Tên khách hàng:</strong> @Model.FullName</div>
+                    <div class="mb-2"><strong>Địa chỉ nhận:</strong> @Model.Address</div>
+                    <div class="mb-2"><strong>Số điện thoại:</strong> @Model.Phone</div>
+                    <div class="mb-2"><strong>Email:</strong> @Model.Email</div>
+                </div>
+                <p style="color: coral; font-weight: bold">Chúng tôi sẽ giao hàng sớm nhất cho sản phẩm của bạn! Yên tâm chờ đợi là hạnh phúc nhé!</p>
+                <div class="button_com">
+                    <a class="btn btn-warning" href="">Quay trở lại</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <!-- Thông tin Sản phẩm -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Ảnh</th>
+                            @*<th>Size</th>*@
+                            <th>Đơn Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.CartItems.Count; i++)
+                        {
+                            <tr>
+                                <td>@(i + 1)</td>
+                                <td>@Model.CartItems[i].TenSanPham</td>
+                                <td>
+                                    <img src="~/image/Anh_tuixach/@Model.CartItems[i].HinhAnh" style="width: 80px; height: 80px;" alt="Img">
+                                </td>
+                                @*<td>@Model.CartItems[i].Size</td>*@
+                                <td>@Html.FormatValue(Model.CartItems[i].Gia, "{0:#,###}") VND</td>
+                                <td>@Model.CartItems[i].SoLuong</td>
+                                <td>@Html.FormatValue(Model.CartItems[i].Gia * Model.CartItems[i].SoLuong,"{0:#,###}") VND</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="tongtien" style="margin-right: 650px; font-size: 20px">
+                    Tổng tiền: <strong style="color:#bd8d3f; font-size: 20px;">@Html.FormatValue(Model.TongTien, "{0:#,###}") VND</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

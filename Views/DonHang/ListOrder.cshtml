@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TuiXach.Models.Order>
+﻿@model IEnumerable<TuiXach.ViewModel.OrderViewModel>
+
 @{
     ViewBag.Title = "ListOrder";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -114,42 +115,58 @@
     }
 </style>
 <!------------------------------------------------------------------------------------------------------->
-<div>
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã đơn hàng</th>
-                            <th>Tên khách hàng</th>
-                            <th>Ngày đặt</th>
-                            <th>Trạng thái đơn hàng</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Count(); i++)
-                        {
-                            var order = Model.ElementAt(i);
+@if (Session["UserID"] != null)
+{
+    <div>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <td>@(i + 1)</td>
-                                <td>@order.OrderID</td>
-                                <td>@order.CustomerID</td>
-                                <td>@order.NgayDat.ToString()</td>
-                                <td>
-                                    @order.TrangThaiDonHang
-                                </td>
-                                <td>
-                                    <a class="btn btn-warning1" href="@Url.Action("Details", new { id = order.OrderID })">Xem</a>
-                                    <a class="btn btn-warning2" href="@Url.Action("Cancel", new { id = order.OrderID })">Hủy</a>
-                                </td>
+                                <th>STT</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Tên khách hàng</th>
+                                <th>Ngày đặt</th>
+                                <th>Trạng thái đơn hàng</th>
+                                <th>Thao tác</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr>
+                                    <td>@order.OrderID</td>
+                                    <td>@order.OrderID</td>
+                                    <td>@order.FullName</td>
+                                    <td>@order.NgayDat</td>
+                                    <td>@order.TrangThaiDonHang</td>
+                                    <td>
+                                        <a class="btn btn-warning1" href="@Url.Action("ViewOrders", "DonHang", new { id = order.OrderID })">Xem</a>
+                                        <a class="btn btn-warning2" href="@Url.Action("DeleteOrder", "DonHang", new { id = order.OrderID })">Hủy</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <style>
+        .hinh_anh {
+            text-align: center;
+            padding: 10px 0px;
+        }
+    </style>
+
+    <div class="hinh_anh">
+        <img src="~/image/anh_logo_lienhe/banner-thong-bao-gio-lam-viec.png" style="width: 1300px">
+    </div>
+    <div class="hien_chu" style="margin-top: 50px; text-align:center">
+        <h2>Vui lòng đăng nhập để xem các đơn hàng của bạn!</h2>
+    </div>
+}

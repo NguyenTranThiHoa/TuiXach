@@ -117,7 +117,7 @@ header {
 .menu {
     list-style-type: none;
     margin: 0;
-    padding: 5px 0 5px 130px;
+    padding: 5px 0 5px 160px;
     background-color: seashell;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
     display: flex;
@@ -144,7 +144,7 @@ header {
     font-weight: 700;
 }
 .menu li {
-    padding: 14px 16px;
+    padding: 14px 22px;
 }
 .menu > li:last-child {
     margin-inline: auto 100px;

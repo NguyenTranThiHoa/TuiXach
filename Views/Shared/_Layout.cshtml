@@ -88,18 +88,17 @@
             <li><a href="#about">Đơn hàng</a></li>
         </ul>*@
 
-            <ul class="menu" style="background-color:burlywood;">
-                <li>@Html.ActionLink("TRANG CHỦ", "Index", "Home", new { area = "" }, new { @class = "" })</li>
-                <li class="list-product">
-                    <a href="#home" style="color: black;">SẢN PHẨM</a>
-                    @Html.Action("GetPhanLoai", "Home")
-                </li>
-                <li><a href="#home" style="color: black; ">HÀNG MỚI</a></li>
-                <li><a href="#home" style="color: black;">ƯU ĐÃI</a></li>
-                <li>@Html.ActionLink("VỀ CHÚNG TÔI", "VeChungToi", "Home", new { area = "" }, new { @class = "" })</li>
-                <li>@Html.ActionLink("LIÊN HỆ", "LienHe", "Home", new { area = "" }, new { @class = "" })</li>
-                <li>@Html.ActionLink("ĐƠN HÀNG", "ListOrder", "DonHang" , new { area = "" }, new { @class = "" })</li>
-            </ul>
+        <ul class="menu" style="background-color:burlywood;">
+            <li>@Html.ActionLink("TRANG CHỦ", "Index", "Home", new { area = "" }, new { @class = "" })</li>
+            <li class="list-product">
+                <a href="#home" style="color: black;">SẢN PHẨM</a>
+                @Html.Action("GetPhanLoai", "Home")
+            </li>
+            <li>@Html.ActionLink("ƯU ĐÃI", "UuDai", "Home", new { area = "" }, new { @class = "" })</li>
+            <li>@Html.ActionLink("VỀ CHÚNG TÔI", "VeChungToi", "Home", new { area = "" }, new { @class = "" })</li>
+            <li>@Html.ActionLink("LIÊN HỆ", "LienHe", "Home", new { area = "" }, new { @class = "" })</li>
+            <li>@Html.ActionLink("ĐƠN HÀNG", "ListOrder", "DonHang", new { area = "" }, new { @class = "" })</li>
+        </ul>
 
             <div style="background-color: white">
             </div>
@@ -120,18 +119,30 @@
                     </div>
                     <img src="~/image/4.png" style="width: 150px">
                 </div>
-                <div class="col-3">
+                <div class="col-md-2">
                     <div class="tieude1">
                         <ul>
-                            <li>@Html.ActionLink("Về chúng tôi", "VeChungToi", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li style=" text-decoration: none; list-style-type: none">@Html.ActionLink("Về chúng tôi", "VeChungToi", "Home", new { area = "" }, new { @class = "tieude1" })</li>
                             <li>@Html.ActionLink("Liên hệ", "LienHe", "Home", new { area = "" }, new { @class = "tieude1" })</li>
                             <li>@Html.ActionLink("Trang chủ","Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Sự kiện</a></li>
+                            <li>@Html.ActionLink("Blog", "Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li>@Html.ActionLink("Sự kiện", "Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-2">
+                    <div class="tieude1">
+                        <ul>
+                            <li style=" text-decoration: none; list-style-type: none">@Html.ActionLink("Về chúng tôi", "VeChungToi", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li>@Html.ActionLink("Sản phẩm", "LienHe", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li>@Html.ActionLink("Ưu đãi", "Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li>@Html.ActionLink("Về chúng tôi", "Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                            <li>@Html.ActionLink("Chi nhánh", "Index", "Home", new { area = "" }, new { @class = "tieude1" })</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-5">
                     <div class="footer-content">
                         <ul class="tieude" style="color:black">
                             <li class="header-item">HỆ THỐNG CỬA HÀNG</li>

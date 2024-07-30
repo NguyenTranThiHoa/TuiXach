@@ -93,18 +93,18 @@
                                 <tr>
                                     <td>@(i + 1)</td>
                                     <td>@item.TenSanPham</td>
-                                    <td><img src="~/image/@item.HinhAnh" style="width: 100px; height: auto;" alt="@item.TenSanPham" /></td>
+                                    <td><img src="~/image/Anh_tuixach/@item.HinhAnh" style="width: 100px; height: auto;" alt="@item.TenSanPham" /></td>
                                     <td>@item.Size</td>
-                                    <td>@item.Gia VND</td>
+                                    <td>@Html.FormatValue(item.Gia, "{0:#,###}") VND</td>
                                     <td>@item.SoLuong</td>
-                                    <td>@tongTien VND</td>
+                                    <td>@Html.FormatValue(tongTien, "{0:#,###}") VND</td>
                                 </tr>
                             }
                         </tbody>
                     </table>
 
                     <div class="checkout_order_total">
-                        <p>Tổng số tiền cần thanh toán: <span style="color: orangered; margin-left: 20px;">@Model.TongTien VND</span></p>
+                        <p>Tổng số tiền cần thanh toán: <span style="color: orangered; margin-left: 20px;">@Html.FormatValue(Model.TongTien, "{0:#,###}") VND</span></p>
                     </div>
 
                     <div class="buttons" style="margin-top: 20px; margin-right:550px; ">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -15,7 +16,12 @@ namespace TuiXach.Controllers
         private TuiXachShop db = new TuiXachShop();
         public ActionResult Index()
         {
-            return View();
+            var lstProducts = (from p in db.SanPhams
+                               where p.PhanLoaiID == 2  // Thay đổi phân loại nếu cần
+                               orderby p.Gia descending
+                               select p).ToList();
+
+            return View(lstProducts); // Đảm bảo là List<SanPham>
         }
 
         public ActionResult LienHe()
@@ -49,10 +55,14 @@ namespace TuiXach.Controllers
             return View("~/Views/SanPham/ViewCart.cshtml", new { Layout = "~/Views/Shared/_LayoutPage.cshtml" });
         }
 
-        public ActionResult Checkout()
+        public ActionResult UuDai()
         {
-            return View("~/Views/Checkout/Checkout.cshtml", new { Layout = "~/Views/Shared/_LayoutPage.cshtml" });
-        }
+            var lstProducts = (from p in db.SanPhams
+                               where p.PhanLoaiID == 2  // Thay đổi phân loại nếu cần
+                               orderby p.Gia descending
+                               select p).ToList();
 
+            return View(lstProducts); // Đảm bảo là List<SanPham>
+        }
     }
 }

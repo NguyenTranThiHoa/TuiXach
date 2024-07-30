@@ -4,31 +4,29 @@
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
 
-@*<div class=" w3l-login-form">*@
-    @*<form action="Account" method="POST">*@
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = " w3l-login-form" }))
-    {
-        <h2>ĐĂNG NHẬP</h2>
-        <div class=" w3l-form-group">
-            <label>Username:</label>
-            <div class="group">
-                <i class="bi bi-user"></i>
-                <input type="text" name="Username" class="form-control" placeholder="Nhập vào Username" required="required" />
-            </div>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = " w3l-login-form" }))
+{
+    <h2>ĐĂNG NHẬP</h2>
+    <div class=" w3l-form-group">
+        <label>Username:</label>
+        <div class="group">
+            <i class="bi bi-user"></i>
+            <input type="text" name="Username" class="form-control" placeholder="Nhập vào Username" required="required" />
         </div>
-        <div class=" w3l-form-group">
-            <label>Password:</label>
-            <div class="group">
-                <i class="fas fa-unlock"></i>
-                <input type="password" name="Password" class="form-control" placeholder="Nhập vào Password" required="required" />
-            </div>
+    </div>
+    <div class=" w3l-form-group">
+        <label>Password:</label>
+        <div class="group">
+            <i class="fas fa-unlock"></i>
+            <input type="password" name="Password" class="form-control" placeholder="Nhập vào Password" required="required" />
         </div>
-        <div class="forgot">
-            <a href="#">Quên mật khẩu?</a>
-            <p><input type="checkbox">Nhớ mật khẩu</p>
-        </div>
-        <button type="submit">Đăng nhập</button>
-        @*</form>*@
-        <p class=" w3l-register-p">Bạn chưa có tài khoản?<a href="@Url.Action("Register", "Account")" class="register"> Đăng ký</a></p>
-    }
-@*</div>*@
+    </div>
+    <div class="forgot">
+        @*<a href="#">Quên mật khẩu?</a>*@
+        @*<p><input type="checkbox">Nhớ mật khẩu</p>*@
+        <p><input type="checkbox" id="rememberMe" /> Nhớ mật khẩu</p>
+    </div>
+    <button type="submit">Đăng nhập</button>
+    <p class=" w3l-register-p">Bạn chưa có tài khoản?<a href="@Url.Action("Register", "Account")" class="register"> Đăng ký</a></p>
+}
+

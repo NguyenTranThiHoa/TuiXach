@@ -70,9 +70,9 @@
         font-size: 18px;
     }
 
-    .quantity-button:hover {
-        background-color: #0056b3;
-    }
+        .quantity-button:hover {
+            background-color: #0056b3;
+        }
 
     #quantity {
         width: 50px;
@@ -92,7 +92,7 @@
     <div class="row">
         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
             <div class="anh" style="margin-left: 50px; padding: 60px 0px;">
-                <img src="@Url.Content("~/image/" + Model.HinhAnh)" style="width: 300px" />
+                <img src="@Url.Content("~/image/Anh_tuixach/" + Model.HinhAnh)" style="width: 300px" />
             </div>
         </div>
         <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
@@ -101,7 +101,7 @@
             </div>
             <div class="phan_loai">Phân loại sản phẩm: <strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #3d571f">@Model.TenPhanLoai</strong></div>
             <div class="gia_ban">
-                Giá bán: <strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #e45622; margin-left: 20px;">@Model.Gia VND</strong>
+                Giá bán: <del>2.100.000VND</del><strong style="font-size: 25px; font-weight: bold; font-family:'Times New Roman'; color: #e45622; margin-left: 20px;">@Html.FormatValue(Model.Gia, "{0:#,###}")VND</strong>
             </div>
             <div class="mota">
                 Mô tả sản phẩm:
@@ -117,30 +117,47 @@
                     Phù hợp: Hoàn hảo cho đi làm, đi chơi, dự tiệc hay các dịp dạo phố.
                 </p>
             </div>
-            <div class="nut" style="padding: 25px 0px">
+            <div class="nut" style="padding: 5px 0px">
                 @using (Html.BeginForm("AddToCart", "SanPham", FormMethod.Post))
                 {
                     <input type="hidden" name="sanPhamID" value="@Model.SanPhamID" />
-                    <div class="form-group">
-                        <label for="size">Size:</label>
+                    <div class="Size">
+                        <label for="size" style=" font-weight: normal; font-size: 18px; font-family: Arial">Size:</label>
                         @foreach (var size in Model.SizeList)
                         {
-                            <div class="form-check">
+                            <div class="form-check" style="display: inline-block; padding: 0px 20px">
                                 <input class="form-check-input" type="radio" name="sizeID" value="@size.Value" />
                                 <label class="form-check-label">@size.Text</label>
                             </div>
                         }
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity" value="1" class="form-control" min="1" />
+                    <div class="form-group" style="display:flex">
+                        <label for="quantity" style=" font-weight: normal; font-size: 18px; font-family: Arial; padding: 10px 0px">Số lượng:</label>
+                        <input type="number" name="quantity" id="quantity" value="1" class="form-control" min="1" style="margin-left: 20px; width: 130px" />
                     </div>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success" style="margin-top:10px; padding: 13px 20px; font-size: 18px">
                         Thêm vào giỏ hàng
                     </button>
                 }
             </div>
-      
+
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            const sizeSelected = document.querySelector('input[name="sizeID"]:checked');
+            if (!sizeSelected) {
+                event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+                alert("Vui lòng chọn size cho sản phẩm.");
+            }
+        });
+    });
+</script>
+
+
+
+

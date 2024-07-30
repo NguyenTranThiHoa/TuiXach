@@ -2,7 +2,45 @@
     ViewBag.Title = "Order Success";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    /*    .about_name {
+        background-color: cornsilk;
+        margin-top: 180px;
+        padding: 7px 0px;
+        width: 100%;
+    }*/
+
+    h2 {
+        text-align: center;
+        font-family: Cambria;
+        font-weight: bold;
+        border-radius: 4px;
+        border: 1px dashed #48b1a0;
+        background-color: #cef3f2;
+    }
+
+    .hinh_anh {
+        text-align: center;
+        padding: 10px 0px;
+    }
+
+    .about_vanban p {
+        text-align: left;
+        padding: 5px 35px;
+        justify-content: center;
+    }
+</style>
+@*<div class="about_name">
+        <h2>SẢN PHẨM ƯU ĐÃI</h2>
+    </div>*@
+
+<div class="hinh_anh">
+    <img src="~/image/banner-gioi-thieu.jpg" style="width: 1300px">
+</div>
 
 <div class="order-success">
-    <h2>Đơn hàng của bạn đã được đặt thành công!</h2>
+    <h2>
+        <i>Đơn hàng của bạn đã được đặt thành công!<br />
+        Chúng tôi sẽ xử lý đơn hàng của bạn sớm nhất có thể.</i>
+    </h2>
 </div>

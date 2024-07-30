@@ -30,6 +30,7 @@ namespace TuiXach.Controllers
             if (user != null)
             {
                 Session["Username"] = user.Username;
+                Session["UserID"] = user.CustomerID; 
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -41,9 +42,16 @@ namespace TuiXach.Controllers
 
         public ActionResult Logout()
         {
-            Session["Username"] = null;
+            Session.Clear(); // Clear all session data
             return RedirectToAction("Index", "Home");
         }
+
+
+        //public ActionResult Logout()
+        //{
+        //    Session["Username"] = null;
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         [HttpGet]
         public ActionResult Register()
@@ -64,6 +72,7 @@ namespace TuiXach.Controllers
                 }
 
                 Session["Username"] = user.Username;
+                Session["UserID"] = user.CustomerID;
 
                 try
                 {
@@ -80,6 +89,65 @@ namespace TuiXach.Controllers
         }
 
         /******************************Chỉnh sửa thông tin người dùng**************************************/
+        //[HttpGet]
+        //public ActionResult EditProfile()
+        //{
+        //    if (Session["Username"] == null)
+        //    {
+        //        return RedirectToAction("Login");
+        //    }
+
+        //    string username = Session["Username"].ToString();
+        //    var customer = db.Customers.FirstOrDefault(c => c.Username == username);
+
+        //    if (customer == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //    return View(customer);
+        //}
+
+
+        //[HttpPost]
+        //public ActionResult EditProfile(Customer updatedCustomer, HttpPostedFileBase ProfilePicture)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var customer = db.Customers.FirstOrDefault(c => c.CustomerID == updatedCustomer.CustomerID);
+        //        if (customer != null)
+        //        {
+        //            customer.FullName = updatedCustomer.FullName;
+        //            customer.Email = updatedCustomer.Email;
+        //            customer.SoDienThoai = updatedCustomer.SoDienThoai;
+        //            customer.DiaChi = updatedCustomer.DiaChi;
+        //            customer.NgaySinh = updatedCustomer.NgaySinh;
+        //            customer.Username = updatedCustomer.Username;
+        //            customer.Password = updatedCustomer.Password;
+
+        //            if (ProfilePicture != null && ProfilePicture.ContentLength > 0)
+        //            {
+        //                string path = Path.Combine(Server.MapPath("~/image/Anh_nguoi_dung/"), ProfilePicture.FileName);
+        //                ProfilePicture.SaveAs(path);
+        //                customer.ProfileImage = ProfilePicture.FileName;
+        //            }
+
+        //            try
+        //            {
+        //                db.SaveChanges();
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
+        //            }
+        //        }
+        //    }
+        //    return View(updatedCustomer);
+        //}
+
+        /*****************************************************************************/
+
         [HttpGet]
         public ActionResult EditProfile()
         {
@@ -88,8 +156,8 @@ namespace TuiXach.Controllers
                 return RedirectToAction("Login");
             }
 
-            string username = Session["Username"].ToString();
-            var customer = db.Customers.FirstOrDefault(c => c.Username == username);
+            int userId = (int)Session["UserID"]; // Get user ID from session
+            var customer = db.Customers.FirstOrDefault(c => c.CustomerID == userId);
 
             if (customer == null)
             {
@@ -113,13 +181,18 @@ namespace TuiXach.Controllers
                     customer.DiaChi = updatedCustomer.DiaChi;
                     customer.NgaySinh = updatedCustomer.NgaySinh;
                     customer.Username = updatedCustomer.Username;
-                    customer.Password = updatedCustomer.Password;
+
+                    if (!string.IsNullOrEmpty(updatedCustomer.Password))
+                    {
+                        customer.Password = updatedCustomer.Password; 
+                    }
 
                     if (ProfilePicture != null && ProfilePicture.ContentLength > 0)
                     {
-                        string path = Path.Combine(Server.MapPath("~/image/Anh_nguoi_dung/"), ProfilePicture.FileName);
+                        string fileName = Path.GetFileName(ProfilePicture.FileName);
+                        string path = Path.Combine(Server.MapPath("~/image/Anh_nguoi_dung/"), fileName);
                         ProfilePicture.SaveAs(path);
-                        customer.ProfileImage = ProfilePicture.FileName;
+                        customer.ProfileImage = fileName;
                     }
 
                     try
@@ -135,7 +208,6 @@ namespace TuiXach.Controllers
             }
             return View(updatedCustomer);
         }
-
     }
 }
 

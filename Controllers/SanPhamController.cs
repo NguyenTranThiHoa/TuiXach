@@ -25,7 +25,6 @@ namespace TuiXach.Controllers
             var products = db.SanPhams.Where(p => p.PhanLoaiID == id).OrderByDescending(p => p.Gia).ToList();
             ViewBag.soluong = products.Count();
             return View(products);
-
         }
 
         public ActionResult ChiTietSanPham(int maSanPham)
@@ -70,28 +69,65 @@ namespace TuiXach.Controllers
 
             if (product != null && size != null)
             {
-                var cartItem = new SanPhamViewModel
-                {
-                    SanPhamID = product.SanPhamID,
-                    TenSanPham = product.TenSanPham,
-                    Gia = product.Gia,
-                    HinhAnh = product.HinhAnh,
-                    SizeID = size.SizeID,
-                    Size = size.Size,
-                    SoLuong = quantity
-                };
+                var cart = Session["Cart"] as List<SanPhamViewModel> ?? new List<SanPhamViewModel>();
 
-                var cart = Session["Cart"] as List<SanPhamViewModel>;
-                if (cart == null)
+                var existingItem = cart.FirstOrDefault(c => c.SanPhamID == sanPhamID && c.SizeID == sizeID);
+
+                if (existingItem != null)
                 {
-                    cart = new List<SanPhamViewModel>();
+                    existingItem.SoLuong += quantity;
                 }
-                cart.Add(cartItem);
+                else
+                {
+                    var cartItem = new SanPhamViewModel
+                    {
+                        SanPhamID = product.SanPhamID,
+                        TenSanPham = product.TenSanPham,
+                        Gia = product.Gia,
+                        HinhAnh = product.HinhAnh,
+                        SizeID = size.SizeID,
+                        Size = size.Size,
+                        SoLuong = quantity
+                    };
+                    cart.Add(cartItem);
+                }
                 Session["Cart"] = cart;
             }
 
             return RedirectToAction("ViewCart", "SanPham");
         }
+
+        //[HttpPost]
+        //public ActionResult AddToCart(int sanPhamID, int sizeID, int quantity)
+        //{
+        //    var product = db.SanPhams.Find(sanPhamID);
+        //    var size = db.ProductSizes.Find(sizeID);
+
+        //    if (product != null && size != null)
+        //    {
+        //        var cartItem = new SanPhamViewModel
+        //        {
+        //            SanPhamID = product.SanPhamID,
+        //            TenSanPham = product.TenSanPham,
+        //            Gia = product.Gia,
+        //            HinhAnh = product.HinhAnh,
+        //            SizeID = size.SizeID,
+        //            Size = size.Size,
+        //            SoLuong = quantity
+        //        };
+
+        //        var cart = Session["Cart"] as List<SanPhamViewModel>;
+        //        if (cart == null)
+        //        {
+        //            cart = new List<SanPhamViewModel>();
+        //        }
+        //        cart.Add(cartItem);
+        //        Session["Cart"] = cart;
+        //    }
+
+        //    return RedirectToAction("ViewCart", "SanPham");
+        //}
+
 
         public ActionResult ViewCart()
         {
@@ -117,7 +153,6 @@ namespace TuiXach.Controllers
                     Session["Cart"] = cart;
                 }
             }
-
             return RedirectToAction("ViewCart");
         }
     }

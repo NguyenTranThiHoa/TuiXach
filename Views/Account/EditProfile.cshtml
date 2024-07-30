@@ -94,7 +94,7 @@
                         </div>
                         <div class="col-6">
                             <label for="NgaySinh">Ngày sinh:</label>
-                            @Html.TextBoxFor(model => model.NgaySinh, new { @class = "form-control", type = "date" })
+                            @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
 
                             <label for="Username">Username:</label>
                             @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
