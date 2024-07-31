@@ -8,7 +8,7 @@ namespace TuiXach.Models
     public partial class TuiXachShop : DbContext
     {
         public TuiXachShop()
-            : base("name=TuiXachShop3")
+            : base("name=TuiXachShop4")
         {
         }
 

@@ -185,6 +185,7 @@
     <Content Include="image\anh_logo_lienhe\banner-thong-bao-gio-lam-viec.png" />
     <Content Include="image\anh_logo_lienhe\thihoa.jpg" />
     <Content Include="image\Anh_thihoa\1.jpg" />
+    <Content Include="image\Anh_thihoa\thihoa.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_1.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_10.jpg" />
@@ -192,6 +193,7 @@
     <Content Include="image\Anh_tuixach\phanloai1_2.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_3.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_4.jpg" />
+    <Content Include="image\Anh_tuixach\phanloai1_5.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_6.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_7.jpg" />
     <Content Include="image\Anh_tuixach\phanloai1_8.jpg" />

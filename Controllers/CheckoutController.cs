@@ -17,6 +17,35 @@ namespace TuiXach.Controllers
             return View();
         }
 
+        //public ActionResult Checkout()
+        //{
+        //    var cart = Session["Cart"] as List<SanPhamViewModel>;
+        //    if (cart == null)
+        //    {
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    var username = Session["Username"]?.ToString();
+        //    var customer = db.Customers.FirstOrDefault(c => c.Username == username);
+
+        //    if (customer == null)
+        //    {
+        //        return RedirectToAction("Login", "Account");
+        //    }
+
+        //    var viewModel = new CheckoutViewModel
+        //    {
+        //        CartItems = cart,
+        //        FullName = customer.FullName,
+        //        Address = customer.DiaChi,
+        //        Phone = customer.SoDienThoai,
+        //        Email = customer.Email,
+        //        TongTien = (int)cart.Sum(item => item.Gia * item.SoLuong)
+        //    };
+
+        //    return View(viewModel);
+        //}
+
         public ActionResult Checkout()
         {
             var cart = Session["Cart"] as List<SanPhamViewModel>;
@@ -45,6 +74,7 @@ namespace TuiXach.Controllers
 
             return View(viewModel);
         }
+
 
         [HttpPost]
         public ActionResult ProcessCheckout(CheckoutViewModel model)

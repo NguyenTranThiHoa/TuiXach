@@ -103,6 +103,7 @@ namespace TuiXach.Controllers
                     };
                     cart.Add(cartItem);
                 }
+                // Update the session cart
                 Session["Cart"] = cart;
             }
 
@@ -166,6 +167,27 @@ namespace TuiXach.Controllers
                 }
             }
             return RedirectToAction("ViewCart");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCart(int sanPhamID, int sizeID, int quantity)
+        {
+            var cart = Session["Cart"] as List<SanPhamViewModel>;
+            if (cart == null)
+            {
+                cart = new List<SanPhamViewModel>();
+            }
+
+            var existingItem = cart.FirstOrDefault(c => c.SanPhamID == sanPhamID && c.SizeID == sizeID);
+
+            if (existingItem != null)
+            {
+                existingItem.SoLuong = quantity; // Cập nhật số lượng
+            }
+
+            Session["Cart"] = cart;
+
+            return Json(new { success = true });
         }
     }
 }

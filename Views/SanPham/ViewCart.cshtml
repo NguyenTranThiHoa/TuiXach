@@ -33,14 +33,18 @@
                                     var item = Model[i];
                                     var tongTien = item.Gia * item.SoLuong;
 
-                                    <tr>
+                                    <tr data-id="@item.SanPhamID" data-sizeid="@item.SizeID" data-price="@item.Gia">
                                         <td>@(i + 1)</td>
                                         <td>@item.TenSanPham</td>
                                         <td><img src="~/image/Anh_tuixach/@item.HinhAnh" style="width: 100px; height: auto;" /></td>
                                         <td>@item.Size</td>
                                         <td>@Html.FormatValue(item.Gia, "{0:#,###}") VND</td>
-                                        <td>@item.SoLuong</td>
-                                        <td>@Html.FormatValue(tongTien, "{0:#,###}") VND</td>
+                                        <td>
+                                            <div class="form-group" style="display: flex; align-items: center; font-family: Arial, sans-serif; font-size: 18px;">
+                                                <input type="number" name="quantity" value="@item.SoLuong" class="form-control quantity" min="1" style="margin-left: 20px; width: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px;text-align:center" />
+                                            </div>
+                                        </td>
+                                        <td class="total-price">@Html.FormatValue(tongTien, "{0:#,###}") VND</td>
                                         <td>
                                             @using (Html.BeginForm("RemoveFromCart", "SanPham", FormMethod.Post))
                                             {
@@ -54,7 +58,7 @@
                             </tbody>
                         </table>
                         <div class="checkout_order_total">
-                            Tổng số tiền cần thanh toán: <span style="color: orangered">@Html.FormatValue(Model.Sum(item => item.Gia * item.SoLuong), "{0:#,###}") VND</span>
+                            Tổng số tiền cần thanh toán: <span id="totalAmount" style="color: orangered">@Html.FormatValue(Model.Sum(item => item.Gia * item.SoLuong), "{0:#,###}") VND</span>
                         </div>
                         <div class="buttons" style="margin-top: 20px;">
                             @using (Html.BeginForm("Checkout", "Checkout", FormMethod.Post))
@@ -99,4 +103,59 @@ else
     <div class="hien_chu" style="margin-top: 50px; text-align:center">
         <h2>Vui lòng đăng nhập để xem giỏ hàng của bạn!</h2>
     </div>
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Hàm cập nhật giỏ hàng
+            function updateCart() {
+                var $row = $(this).closest('tr');
+                var sanPhamID = $row.data('id');
+                var sizeID = $row.data('sizeid');
+                var price = parseFloat($row.data('price'));
+                var quantity = parseInt($(this).val());
+                var total = price * quantity;
+
+                // Cập nhật tổng tiền cho sản phẩm
+                $row.find('.total-price').text(total.toLocaleString() + ' VND');
+
+                // Cập nhật dữ liệu trên server
+                $.post('@Url.Action("UpdateCart", "SanPham")', {
+                    sanPhamID: sanPhamID,
+                    sizeID: sizeID,
+                    quantity: quantity
+                }, function(response) {
+                    if (response.success) {
+                        // Cập nhật tổng số tiền của giỏ hàng
+                        updateTotalAmount();
+                    }
+                });
+            }
+
+            // Xử lý sự kiện thay đổi và mất tiêu điểm
+            $('.quantity').on('change blur', function() {
+                var quantity = parseInt($(this).val());
+                if (isNaN(quantity) || quantity < 1) {
+                    $(this).val(1);
+                    quantity = 1;
+                }
+                updateCart.call(this);
+            });
+
+            // Hàm cập nhật tổng số tiền
+            function updateTotalAmount() {
+                var totalAmount = 0;
+                $('.total-price').each(function() {
+                    var total = parseFloat($(this).text().replace(/[^0-9.-]+/g, ""));
+                    totalAmount += total;
+                });
+                $('#totalAmount').text(totalAmount.toLocaleString() + ' VND');
+            }
+
+            // Cập nhật tổng số tiền khi trang được tải
+            updateTotalAmount();
+        });
+    </script>
 }

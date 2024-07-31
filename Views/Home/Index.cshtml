@@ -26,17 +26,13 @@
 
     .tuido {
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 20px;
         position: relative;
         top: 10px;
         padding: 20px;
-    }
-
-    .anh {
-        float: left;
-        width: auto;
-        padding: 0 6px;
+        width: 90%;
+        margin: 5px auto;
     }
 
     .anh_tiep {
@@ -45,6 +41,9 @@
         transition: .5s ease;
         position: relative;
         height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
         .anh_tiep:hover {
@@ -61,6 +60,13 @@
             transform: scale(1.1);
         }
 
+    .name {
+        text-align: center;
+        margin-top: 20px;
+        height: 50px;
+        overflow: hidden;
+    }
+
     .desc {
         padding: 15px;
         text-align: center;
@@ -74,7 +80,6 @@
         clear: both;
     }
 
-    /***************************************/
     .pagination {
         display: flex;
         padding-left: 0;
@@ -125,6 +130,7 @@
         justify-content: center;
     }
 </style>
+
 <main>
     <section class="anhbia" style="position: relative; z-index: 3">
         <img src="~/image/nen1.png" style="object-fit: contain; max-width: 100%" />
@@ -135,7 +141,7 @@
     <div class="about_name">
         <h2>GỢI Ý MỘT SỐ SẢN PHẨM</h2>
     </div>
-    <hr style=" font-size: 50px; margin-left:200px; margin-right: 200px; border: 5px dotted #0056b3">
+    <hr style="font-size: 50px; margin-left:200px; margin-right: 200px; border: 5px dotted #0056b3">
 
     <div class="tuido">
         @if (Model != null && Model.Any())
@@ -143,18 +149,15 @@
             foreach (var product in Model)
             {
                 <div class="tuixach" style="position: relative; top: 10px;">
-                    <div class="anh">
-                        <div class="anh_tiep">
-                            <a href="@Url.Action("ChiTietSanPham","SanPham", new {@maSanPham = product.SanPhamID})" title="Xem chi tiết">
-                                <img src="~/image/Anh_tuixach/@product.HinhAnh" alt="anh1" width="600" height="400">
-                            </a>
-                            <div class="name" style="text-align:center; margin-top: 20px">@product.TenSanPham</div>
-                            <div class="desc" style="font-weight: bold">@Html.FormatValue(product.Gia, "{0:#,###}") </div>
-                        </div>
+                    <div class="anh_tiep">
+                        <a href="@Url.Action("ChiTietSanPham", "SanPham", new { @maSanPham = product.SanPhamID })" title="Xem chi tiết">
+                            <img src="~/image/Anh_tuixach/@product.HinhAnh" alt="anh1" width="600" height="400">
+                        </a>
+                        <div class="name">@product.TenSanPham</div>
+                        <div class="desc" style="color: #0fd0c9">@Html.FormatValue(product.Gia, "{0:#,###}") VND</div>
                     </div>
                 </div>
             }
         }
-
     </div>
 </main>

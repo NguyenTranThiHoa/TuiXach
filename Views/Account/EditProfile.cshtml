@@ -32,11 +32,11 @@
         margin-bottom: 20px;
     }
 
-    .hinh_anh img {
-        width: 250px;
-        height: 310px;
-        padding: 20px 30px;
-    }
+        .hinh_anh img {
+            width: 250px;
+            height: 310px;
+            padding: 20px 30px;
+        }
 
     .chinh_sua label {
         display: block;
@@ -69,9 +69,9 @@
         <div class="row">
             <div class="col-5" style="display: flex; flex-direction: column; align-items: center;">
                 <div class="hinh_anh">
-                    <img src="~/image/Anh_nguoi_dung/@Model.ProfileImage" alt="Profile Image">
+                    <img id="profileImage" src="~/image/Anh_thihoa/@Model.ProfileImage" alt="Profile Image">
                 </div>
-                <input type="file" id="ProfilePicture" name="ProfilePicture">
+                <input type="file" id="ProfilePicture" name="ProfilePicture" accept="image/*" onchange="previewImage(event)">
             </div>
             <div class="col-7">
                 <div class="chinh_sua">
@@ -110,4 +110,17 @@
             </div>
         </div>
     </div>
+}
+
+@section Scripts {
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('profileImage');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 }

@@ -67,7 +67,7 @@
                             <th>STT</th>
                             <th>Tên sản phẩm</th>
                             <th>Ảnh</th>
-                            @*<th>Size</th>*@
+                            <th>Size</th>
                             <th>Đơn Giá</th>
                             <th>Số lượng</th>
                             <th>Thành tiền</th>
@@ -82,10 +82,10 @@
                                 <td>
                                     <img src="~/image/Anh_tuixach/@Model.CartItems[i].HinhAnh" style="width: 80px; height: 80px;" alt="Img">
                                 </td>
-                                @*<td>@Model.CartItems[i].Size</td>*@
+                                <td>@Model.CartItems[i].Size</td>
                                 <td>@Html.FormatValue(Model.CartItems[i].Gia, "{0:#,###}") VND</td>
                                 <td>@Model.CartItems[i].SoLuong</td>
-                                <td>@Html.FormatValue(Model.CartItems[i].Gia * Model.CartItems[i].SoLuong,"{0:#,###}") VND</td>
+                                <td>@Html.FormatValue(Model.CartItems[i].Gia * Model.CartItems[i].SoLuong, "{0:#,###}") VND</td>
                             </tr>
                         }
                     </tbody>

@@ -30,7 +30,8 @@ namespace TuiXach.Controllers
             if (user != null)
             {
                 Session["Username"] = user.Username;
-                Session["UserID"] = user.CustomerID; 
+                Session["UserID"] = user.CustomerID;
+
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -40,18 +41,21 @@ namespace TuiXach.Controllers
             }
         }
 
-        public ActionResult Logout()
-        {
-            Session.Clear(); // Clear all session data
-            return RedirectToAction("Index", "Home");
-        }
-
-
         //public ActionResult Logout()
         //{
-        //    Session["Username"] = null;
+        //    Session.Clear(); // Clear all session data
         //    return RedirectToAction("Index", "Home");
         //}
+
+
+        public ActionResult Logout()
+        {
+            // Xóa thông tin người dùng nhưng giữ giỏ hàng
+            Session["Username"] = null;
+            Session["UserID"] = null;
+
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpGet]
         public ActionResult Register()
@@ -184,13 +188,13 @@ namespace TuiXach.Controllers
 
                     if (!string.IsNullOrEmpty(updatedCustomer.Password))
                     {
-                        customer.Password = updatedCustomer.Password; 
+                        customer.Password = updatedCustomer.Password;
                     }
 
                     if (ProfilePicture != null && ProfilePicture.ContentLength > 0)
                     {
                         string fileName = Path.GetFileName(ProfilePicture.FileName);
-                        string path = Path.Combine(Server.MapPath("~/image/anh_logo_lienhe/thihoa.jpg"), fileName);
+                        string path = Path.Combine(Server.MapPath("~/image/Anh_thihoa"), fileName);
                         ProfilePicture.SaveAs(path);
                         customer.ProfileImage = fileName;
                     }
