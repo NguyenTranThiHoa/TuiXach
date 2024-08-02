@@ -1,0 +1,31 @@
+﻿@model QLAdmin.Areas.Admin.Data.DanhmucVM
+
+@{
+    ViewBag.Title = "DeleteDanhmuc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Xóa Danh Mục</h2>
+
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Bạn có chắc chắn muốn xóa danh mục này không?</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhanLoaiID)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PhanLoaiID)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenPhanLoai)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TenPhanLoai)</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm("DeleteDanhmuc", "QLDanhmuc", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-center">
+            <input type="submit" value="Xóa" class="btn btn-danger btn-lg" />
+            @Html.ActionLink("Trở về", "Index", "QLDanhmuc", new { @class = "btn btn-secondary btn-lg ml-2" })
+        </div>
+    }
+</div>

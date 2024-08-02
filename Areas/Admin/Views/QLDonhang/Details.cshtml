@@ -1,0 +1,92 @@
+﻿@model QLAdmin.Areas.Admin.Data.DonhangVM
+@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    var orderItems = ViewBag.OrderItems as List<QLAdmin.Areas.Admin.Data.CTDonhangVM>;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg border-0 rounded-3 my-5">
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <h1 class="display-4">Chi Tiết Đơn Hàng</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">Thông Tin Khách Hàng</h5>
+                    <form class="user" method="post" action="@Url.Action("UpdateStatus")">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.OrderID" />
+                        <div class="mb-3">
+                            <label class="form-label">Khách hàng:</label>
+                            <p class="form-control-plaintext">@Model.Customer.FullName</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ:</label>
+                            <p class="form-control-plaintext">@Model.Customer.DiaChi</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại:</label>
+                            <p class="form-control-plaintext">@Model.Customer.SoDienThoai</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email:</label>
+                            <p class="form-control-plaintext">@Model.Customer.Email</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Trạng thái đơn hàng:</label>
+                            <select name="status" class="form-select">
+                                <option value="Xử lý" @(Model.TrangThaiDonHang == "Xử lý" ? "selected" : "")>Xử lý</option>
+                                <option value="Đã xác nhận" @(Model.TrangThaiDonHang == "Đã xác nhận" ? "selected" : "")>Đã xác nhận</option>
+                                <option value="Đang chuyển hàng" @(Model.TrangThaiDonHang == "Đang chuyển hàng" ? "selected" : "")>Đang chuyển hàng</option>
+                                <option value="Đã giao hàng" @(Model.TrangThaiDonHang == "Đã giao hàng" ? "selected" : "")>Đã giao hàng</option>
+                                <option value="Đã hủy" @(Model.TrangThaiDonHang == "Đã hủy" ? "selected" : "")>Đã hủy</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-primary" type="submit">Cập nhật</button>
+                            <a href="@Url.Action("Index", "QLDonhang", new { area = "Admin" })" class="btn btn-secondary">Trở về</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="mb-3">Chi Tiết Đơn Hàng</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Ảnh</th>
+                                <th scope="col">Đơn Giá</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < orderItems.Count; i++)
+                            {
+                                var item = orderItems[i];
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@item.SanPham.TenSanPham</td>
+                                    <td>
+                                        <img src="@Url.Content("~/Areas/img/" + item.HinhAnh)" class="img-thumbnail" style="width: 80px; height: 80px;" alt="Img">
+                                    </td>
+                                    <td>@(item.Gia?.ToString("N0") + " VNĐ")</td>
+                                    <td>@item.SoLuong</td>
+                                    <td>@(item.TongTien?.ToString("N0") + " VNĐ")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between mt-4">
+                        <h5>Tổng tiền:</h5>
+                        <h5>@(orderItems.Sum(x => x.TongTien) != null ? orderItems.Sum(x => x.TongTien).Value.ToString("N0") + " VNĐ" : "0 VNĐ")</h5>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

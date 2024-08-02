@@ -1,0 +1,82 @@
+﻿@model QLAdmin.Areas.Admin.Data.NguoiDungVM
+
+@{
+    ViewBag.Title = "DetailNguoidung";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Chi Tiết Người Dùng</h2>
+
+    <div class="card">
+        <div class="card-header text-white" style="background-color:#b79033">
+            <h5 class="card-title">Thông Tin Người Dùng</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Thông tin cá nhân -->
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Mã Khách Hàng:</dt>
+                        <dd class="col-sm-8">@Model.CustomerID</dd>
+
+                        <dt class="col-sm-4">Họ Tên:</dt>
+                        <dd class="col-sm-8">@Model.FullName</dd>
+
+                        <dt class="col-sm-4">Ngày Sinh:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.NgaySinh.HasValue)
+                            {
+                                @Model.NgaySinh.Value.ToString("dd/MM/yyyy")
+                            }
+                            else
+                            {
+                                <span>Chưa có ngày sinh</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4">Số Điện Thoại:</dt>
+                        <dd class="col-sm-8">@Model.SoDienThoai</dd>
+
+                        <dt class="col-sm-4">Địa Chỉ:</dt>
+                        <dd class="col-sm-8">@Model.DiaChi</dd>
+
+                        <dt class="col-sm-4">Email:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+                    </dl>
+                </div>
+
+                <!-- Ảnh hồ sơ và thông tin đăng nhập -->
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Ảnh Hồ Sơ:</dt>
+                        <dd class="col-sm-8">
+                            @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                            {
+                                <img src="@Model.ProfileImage" alt="Profile Image" class="img-fluid rounded" style="max-width: 150px;" />
+                            }
+                            else
+                            {
+                                <span>Chưa có ảnh hồ sơ</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4">Tên Đăng Nhập:</dt>
+                        <dd class="col-sm-8">@Model.Username</dd>
+
+                        <dt class="col-sm-4">Mật Khẩu:</dt>
+                        <dd class="col-sm-8">@Model.Password</dd> 
+
+                        <dt class="col-sm-4">Vai Trò:</dt>
+                        <dd class="col-sm-8">@Model.VaiTro</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            @Html.ActionLink("Sửa", "EditNguoidung", new { id = Model.CustomerID }, new { @class = "btn btn-warning btn-xs text-white" }) 
+            @Html.ActionLink("Trở Về Danh Sách", "QLNguoidung", new { }, new { @class = "btn btn-warning btn-xs text-white" })
+        </div>
+
+    </div>
+</div>

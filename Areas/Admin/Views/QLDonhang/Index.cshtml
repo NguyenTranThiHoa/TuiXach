@@ -1,0 +1,70 @@
+﻿@model IEnumerable<QLAdmin.Areas.Admin.Data.DonhangVM>
+
+@{
+    ViewBag.Title = "Danh Sách Đơn Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Danh Sách Đơn Hàng</h2>
+
+    <table class="table table-striped ">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.OrderID)</th>
+                <th>@Html.DisplayNameFor(model => model.CustomerID)</th>
+                <th>@Html.DisplayNameFor(model => model.TrangThaiDonHang)</th>
+                <th>@Html.DisplayNameFor(model => model.NgayDat)</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.OrderID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerID)</td>
+                    <td class="status-label @(item.TrangThaiDonHang.Replace(" ", "-"))">
+                        @Html.DisplayFor(modelItem => item.TrangThaiDonHang)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                    <td style="text-align:center">
+                        <a href="@Url.Action("Details", new { id = item.OrderID })" class="btn btn-info btn-sm" title="Chi tiết">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .status-label {
+        padding: 5px 10px;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 4px;
+    }
+
+    .Xử-lý {
+        background-color: orange;
+    }
+
+    .Đã-xác-nhận {
+        background-color: yellowgreen;
+    }
+
+    .Đang-chuyển-hàng {
+        background-color: lightblue;
+    }
+
+    .Đã-giao-hàng {
+        background-color: green;
+    }
+
+    .Đã-hủy {
+        background-color: red;
+    }
+</style>

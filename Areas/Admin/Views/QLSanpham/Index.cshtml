@@ -1,0 +1,95 @@
+﻿@model PagedList.IPagedList<QLAdmin.Areas.Admin.Data.SanphamDisplayVM>
+@using QLAdmin.Models
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">QUẢN LÝ SẢN PHẨM</h2>
+
+    <p>
+        <a href="@Url.Action("AddSP", "QLSanpham")" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus"></i> Thêm mới
+        </a>
+    </p>
+
+    <!-- Form tìm kiếm -->
+    <form method="get" action="@Url.Action("Index")" class="mb-4 d-flex justify-content-end">
+        <div class="input-group rounded-pill overflow-hidden" style="max-width: 400px;">
+            <input type="text" name="searchTerm" class="form-control rounded-pill" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchTerm" />
+            <button class="btn btn-primary rounded-pill" type="submit">
+                <i class="fa fa-search"></i>
+                <span class="d-none d-md-inline"> Tìm kiếm</span>
+            </button>
+        </div>
+    </form>
+
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().SanPhamID)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().TenSanPham)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Gia)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().HinhAnh)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().SoLuong)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Size)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().PhanLoai)</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.SanPhamID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenSanPham)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Gia)</td>
+                    <td><img src="~/Areas/img/@item.HinhAnh" alt="Image" class="img-thumbnail" style="max-width: 100px; height: auto;"></td>
+                    <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Size)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhanLoai)</td>
+                    <td class="text-center">
+                        <a href="@Url.Action("DetailSP", new { id = item.SanPhamID })" class="btn btn-info btn-sm" title="Chi tiết">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a href="@Url.Action("EditSP", new { id = item.SanPhamID })" class="btn btn-warning btn-sm" title="Sửa">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("DeleteSP", new { id = item.SanPhamID })" class="btn btn-danger btn-sm" title="Xóa">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="clearfix"></div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            @if (Model.PageCount > 1)
+            {
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, search = ViewBag.SearchTerm })" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">Trước</span>
+                    </a>
+                </li>
+                for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i, search = ViewBag.SearchTerm })">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, search = ViewBag.SearchTerm })" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="visually-hidden">Tiếp</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

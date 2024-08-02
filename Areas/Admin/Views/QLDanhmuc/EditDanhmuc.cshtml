@@ -1,0 +1,45 @@
+﻿@model QLAdmin.Areas.Admin.Data.DanhmucVM
+
+@{
+    ViewBag.Title = "EditDanhmuc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Sửa Danh Mục</h2>
+
+    @using (Html.BeginForm("EditDanhmuc", "QLDanhmuc", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Thông Tin Danh Mục</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="form-group row mb-3">
+                @Html.HiddenFor(model => model.PhanLoaiID)
+                @* Để không hiển thị `HiddenFor` cho `PhanLoaiID`, bạn có thể dùng `HiddenFor` mà không có thêm thẻ `<div>` nếu không cần hiển thị nó. *@
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => model.TenPhanLoai, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TenPhanLoai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenPhanLoai, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-3 text-end">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fa fa-save"></i> Lưu
+                    </button>
+                    <a href="@Url.Action("Index", "QLDanhmuc")" class="btn btn-secondary">
+                        <i class="fa fa-arrow-left"></i> Quay về
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

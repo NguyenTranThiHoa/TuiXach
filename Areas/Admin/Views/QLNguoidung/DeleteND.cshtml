@@ -1,0 +1,54 @@
+﻿@model QLAdmin.Areas.Admin.Data.NguoiDungVM
+
+@{
+    ViewBag.Title = "DeleteND";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Xóa Người Dùng</h2>
+
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Bạn có chắc chắn muốn xóa người dùng này không?</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CustomerID)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.CustomerID)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FullName)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.FullName)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NgaySinh)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NgaySinh)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SoDienThoai)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SoDienThoai)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.DiaChi)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.DiaChi)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Email)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ProfileImage)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.ProfileImage)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Username)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Username)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Password)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Password)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.VaiTro)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.VaiTro)</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm("DeleteND", "QLNguoidung", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-center">
+            <input type="submit" value="Xóa" class="btn btn-danger btn-lg" />
+            @Html.ActionLink("Trở về", "QLNguoidung", "QLNguoidung", new { @class = "btn btn-secondary btn-lg ml-2" })
+        </div>
+    }
+</div>

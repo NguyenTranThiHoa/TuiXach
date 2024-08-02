@@ -1,0 +1,44 @@
+﻿@model QLAdmin.Areas.Admin.Data.KichthuocVM
+
+@{
+    ViewBag.Title = "EditSize";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-4">
+    <h2 class="mb-4">Chỉnh sửa Kích thước</h2>
+
+    @using (Html.BeginForm("EditSize", "QLSize", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Thông tin Kích thước</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            <div class="form-group row mb-3">
+                @Html.HiddenFor(model => model.SizeID, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SizeID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group row mb-3">
+                @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Size, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mt-4">
+                <div class="col-md-10 offset-md-2">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa fa-save"></i> Lưu
+                    </button>
+                    <a href="@Url.Action("Index", "QLSize")" class="btn btn-secondary ms-3" title="Quay về">
+                        <i class="fa fa-arrow-left"></i> Quay về
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

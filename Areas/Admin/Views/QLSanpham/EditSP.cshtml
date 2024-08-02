@@ -1,0 +1,96 @@
+﻿@model QLAdmin.Areas.Admin.Data.SanphamVM
+
+@{
+    ViewBag.Title = "EditSP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Chỉnh sửa Sản phẩm</h2>
+
+    @using (Html.BeginForm("EditSP", "QLSanpham", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Thông tin sản phẩm</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.SanPhamID, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SanPhamID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SanPhamID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.TenSanPham, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.Gia, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            <img src="~/Areas/img/@Model.HinhAnh" alt="Image" class="img-thumbnail" style="max-width: 100px; height: auto;">
+            <input type="file" name="fileUpload" Value="file" />
+        </div>
+    </div>
+   
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.SizeID, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SizeID, (SelectList)ViewBag.SizeID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SizeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mb-3">
+        @Html.LabelFor(model => model.PhanLoaiID, htmlAttributes: new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.PhanLoaiID, (SelectList)ViewBag.PhanLoaiID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PhanLoaiID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row mt-4">
+        <div class="col-md-10 offset-md-2">
+            <button type="submit" class="btn btn-warning me-3">
+                <i class="fa fa-edit"></i> Chỉnh sửa
+            </button>
+            <a href="@Url.Action("Index", "QLSanpham")" class="btn btn-secondary">
+                <i class="fa fa-arrow-left"></i> Quay về
+            </a>
+        </div>
+    </div>
+</div>
+    }
+</div>

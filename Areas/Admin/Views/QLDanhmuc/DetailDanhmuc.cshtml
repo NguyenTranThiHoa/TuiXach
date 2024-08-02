@@ -1,0 +1,30 @@
+﻿@model QLAdmin.Areas.Admin.Data.DanhmucVM
+
+@{
+    ViewBag.Title = "DetailDanhmuc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">CHI TIẾT PHÂN LOẠI</h2>
+
+    <div class="card">
+        <div class="card-header text-white" style="background-color:#b79033">
+            <h5 class="card-title">Thông Tin Phân Loại</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Mã Phân Loại:</dt>
+                <dd class="col-sm-9">@Model.PhanLoaiID</dd>
+
+                <dt class="col-sm-3">Tên Phân Loại:</dt>
+                <dd class="col-sm-9">@Model.TenPhanLoai</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-end">
+            @Html.ActionLink("SỬA", "EditDanhmuc", new { id = Model.PhanLoaiID }, new { @class = "btn btn-xs btn-warning " })
+            @Html.ActionLink("TRỞ VỀ", "Index", "QLSize", new { @class = "btn btn-xs btn-success" })
+        </div>
+    </div>
+</div>

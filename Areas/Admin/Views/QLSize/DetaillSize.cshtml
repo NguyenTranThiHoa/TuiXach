@@ -1,0 +1,29 @@
+﻿@model QLAdmin.Areas.Admin.Data.KichthuocVM
+
+@{
+    ViewBag.Title = "DetaillSize";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container mt-4">
+    <h2 class="mb-4">CHI TIẾT KÍCH THƯỚC</h2>
+
+    <div class="card">
+        <div class="card-header text-white" style="background-color:#b79033">
+            <h5 class="card-title">Thông Tin Kích Thước</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Mã Kích Thước:</dt>
+                <dd class="col-sm-9">@Model.SizeID</dd>
+
+                <dt class="col-sm-3">Tên Kích Thước:</dt>
+                <dd class="col-sm-9">@Model.Size</dd>
+            </dl>
+        </div>
+        <div class="card-footer text-end">
+            @Html.ActionLink("SỬA", "EditSize", new { id = Model.SizeID }, new { @class = "btn btn-xs btn-warning " })
+
+            @Html.ActionLink("TRỞ VỀ", "Index", "QLSize", new { @class = "btn btn-xs btn-success" })
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<QLAdmin.Areas.Admin.Data.NguoidungDisplayVM>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@{
+    ViewBag.Title = "QLNguoidung";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">QUẢN LÝ NGƯỜI DÙNG</h2>
+
+    <p>
+        <a href="@Url.Action("AddND", "QLNguoidung")" class="btn btn-primary btn-sm">
+            <i class="fa fa-plus"></i> Thêm mới
+        </a>
+    </p>
+
+    <table class="table table-bordered ">
+        <thead class="table-light">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CustomerID)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().FullName)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().SoDienThoai)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Email)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().VaiTro)</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CustomerID)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SoDienThoai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.VaiTro)</td>
+                    <td class="text-center">
+                        <a href="@Url.Action("DetailNguoidung", new { id = item.CustomerID })" class="btn btn-info btn-sm" title="Chi tiết">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a href="@Url.Action("EditNguoidung", new { id = item.CustomerID })" class="btn btn-warning btn-sm" title="Sửa">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("DeleteND", new { id = item.CustomerID })" class="btn btn-danger btn-sm" title="Xóa">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

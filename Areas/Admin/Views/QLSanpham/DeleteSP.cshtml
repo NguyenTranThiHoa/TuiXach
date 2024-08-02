@@ -1,0 +1,49 @@
+﻿@model QLAdmin.Areas.Admin.Data.SanphamVM
+
+@{
+    ViewBag.Title = "DeleteSP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">Xóa Sản Phẩm</h2>
+
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Bạn có chắc chắn muốn xóa sản phẩm này không?</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SanPhamID)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SanPhamID)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TenSanPham)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TenSanPham)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Gia)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Gia)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.MoTa)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.MoTa)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SoLuong)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SoLuong)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.SizeID)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.SizeID)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.PhanLoaiID)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.PhanLoaiID)</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm("DeleteSP", "QLSanpham", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-danger btn-lg" style="margin-right: 10px;">
+                <i class="fa fa-trash"></i> Xóa
+            </button>
+            @Html.ActionLink("Quay về", "Index", "QLSanpham", new { @class = "btn btn-secondary btn-lg" })
+        </div>
+    }
+</div>
+   
