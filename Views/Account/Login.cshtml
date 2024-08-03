@@ -1,32 +1,60 @@
-﻿
+﻿@model TuiXach.Models.Customer
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
+<style>
+    .field-validation-error {
+        color: #ff0000;
+        font-size: 14px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = " w3l-login-form" }))
+    .validation-summary-errors {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .validation-summary-errors ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .validation-summary-errors ul li {
+        list-style-type: none;
+    }
+
+    .w3l-login-form {
+        height: 560px;
+    }
+</style>
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "w3l-login-form" }))
 {
     <h2>ĐĂNG NHẬP</h2>
-    <div class=" w3l-form-group">
-        <label>Username:</label>
+    @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+    <div class="w3l-form-group">
+        <label for="Username">Username:</label>
         <div class="group">
             <i class="bi bi-user"></i>
-            <input type="text" name="Username" class="form-control" placeholder="Nhập vào Username" required="required" />
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Nhập vào Username" })
         </div>
+        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "field-validation-error" })
     </div>
-    <div class=" w3l-form-group">
-        <label>Password:</label>
+    <div class="w3l-form-group" style="margin-top: 20px">
+        <label for="Password">Password:</label>
         <div class="group">
             <i class="fas fa-unlock"></i>
-            <input type="password" name="Password" class="form-control" placeholder="Nhập vào Password" required="required" />
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Nhập vào Password" })
         </div>
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "field-validation-error" })
     </div>
-    <div class="forgot">
-        @*<a href="#">Quên mật khẩu?</a>*@
-        @*<p><input type="checkbox">Nhớ mật khẩu</p>*@
-        <p><input type="checkbox" id="rememberMe" /> Nhớ mật khẩu</p>
-    </div>
-    <button type="submit">Đăng nhập</button>
-    <p class=" w3l-register-p">Bạn chưa có tài khoản?<a href="@Url.Action("Register", "Account")" class="register"> Đăng ký</a></p>
+    <button type="submit" style="margin-top: 20px">Đăng nhập</button>
+    <p class="w3l-register-p">Bạn chưa có tài khoản?<a href="@Url.Action("Register", "Account")" class="register"> Đăng ký</a></p>
 }
-

@@ -41,13 +41,6 @@ namespace TuiXach.Controllers
             }
         }
 
-        //public ActionResult Logout()
-        //{
-        //    Session.Clear(); // Clear all session data
-        //    return RedirectToAction("Index", "Home");
-        //}
-
-
         public ActionResult Logout()
         {
             // Xóa thông tin người dùng nhưng giữ giỏ hàng
@@ -56,6 +49,8 @@ namespace TuiXach.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        /********************************Đăng ký************************************/
 
         [HttpGet]
         public ActionResult Register()
@@ -198,11 +193,16 @@ namespace TuiXach.Controllers
                         ProfilePicture.SaveAs(path);
                         customer.ProfileImage = fileName;
                     }
+                    else
+                    {
+                        // Nếu không có hình ảnh mới, giữ nguyên hình ảnh cũ
+                        customer.ProfileImage = customer.ProfileImage; // không thay đổi nếu không có tệp mới
+                    }
 
                     try
                     {
                         db.SaveChanges();
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("EditProfile", "Account");
                     }
                     catch (Exception ex)
                     {

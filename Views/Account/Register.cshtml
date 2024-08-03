@@ -4,39 +4,67 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/_LayoutPage1.cshtml";
 }
+<style>
+    .field-validation-error {
+        color: #ff0000;
+        font-size: 14px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
 
+    .validation-summary-errors {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .validation-summary-errors ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .validation-summary-errors ul li {
+        list-style-type: none;
+    }
+    .w3l-login-form {
+        height: 560px;
+    }
+</style>
 <!---------------ĐĂNG KÝ--------------------->
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "w3l-login-form" }))
 {
     <h2>ĐĂNG KÝ</h2>
     <div class="w3l-form-group">
-        <label>Email:</label>
+        <label style="font-weight: bold">Email:</label>
         <div class="group">
             <i class="fas fa-user"></i>
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập vào Email", required = "required" })
-            @Html.ValidationMessageFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập vào Email" })
         </div>
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-validation-error" })
     </div>
     <div class="w3l-form-group">
-        <label>Username:</label>
+        <label style="font-weight: bold">Username:</label>
         <div class="group">
             <i class="fas fa-user"></i>
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Nhập vào Username", required = "required" })
-            @Html.ValidationMessageFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Nhập vào Username" })
         </div>
+        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "field-validation-error" })
     </div>
     <div class="w3l-form-group">
-        <label>Password:</label>
+        <label style="font-weight: bold">Password:</label>
         <div class="group">
             <i class="fas fa-unlock"></i>
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập vào Password", required = "required" })
-            @Html.ValidationMessageFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập vào Password" })
         </div>
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-validation-error" })
     </div>
-    <div class="forgot">
+    @*<div class="forgot">
         <p><input type="checkbox"> Nhớ mật khẩu</p>
-    </div>
-    <button type="submit">Đăng ký</button>
+    </div>*@
+    <button type="submit" style="margin-top: 20px">Đăng ký</button>
     <p class="w3l-register-p">Bạn đã có tài khoản?<a href="@Url.Action("Login", "Account")" class="register"> Đăng nhập</a></p>
 }
-

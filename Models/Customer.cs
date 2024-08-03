@@ -1,4 +1,4 @@
-namespace TuiXach.Models
+﻿namespace TuiXach.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,27 +17,37 @@ namespace TuiXach.Models
 
         public int CustomerID { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập Họ tên.")]
+        //[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Tên chỉ được chứa chữ cái và khoảng trắng.")]
         [StringLength(255)]
         public string FullName { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? NgaySinh { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại.")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Số điện thoại không được nhập chữ.")]
         [StringLength(15)]
         public string SoDienThoai { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
         [StringLength(255)]
         public string DiaChi { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập Email.")]
+        [RegularExpression(@"^[^@\s]+@gmail\.com$", ErrorMessage = "Email phải có định dạng @gmail.com.")]
         [StringLength(100)]
         public string Email { get; set; }
 
         [StringLength(255)]
         public string ProfileImage { get; set; }
 
+
+        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập.")]
         [StringLength(255)]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu.")]
         [StringLength(255)]
         public string Password { get; set; }
 
