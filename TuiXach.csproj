@@ -332,6 +332,7 @@
     <Content Include="Views\DonHang\ListOrder.cshtml" />
     <Content Include="Views\DonHang\ViewOrders.cshtml" />
     <Content Include="Views\Home\UuDai.cshtml" />
+    <Content Include="Views\SanPham\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

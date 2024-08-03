@@ -189,5 +189,39 @@ namespace TuiXach.Controllers
 
             return Json(new { success = true });
         }
+
+        /***************************************************************/
+        public ActionResult Search(string searchTerm, int id) 
+        {
+            var products = db.SanPhams
+                .Where(p => p.TenSanPham.Contains(searchTerm))
+                .Where(p => p.PhanLoaiID == id)
+                .GroupBy(p => p.TenSanPham)
+                .Select(g => g.OrderBy(p => p.SizeID).FirstOrDefault()) // Chọn sản phẩm đầu tiên theo SizeID trong mỗi nhóm
+                .OrderByDescending(p => p.Gia)
+                .ToList();
+
+            return View(products);
+        }
+
+        // GET: SanPham/Suggestions
+        public JsonResult Suggestions(string term)
+        {
+            var suggestions = db.SanPhams
+                .Where(p => p.TenSanPham.Contains(term))
+                .GroupBy(p => p.TenSanPham)
+                .Select(g => g.FirstOrDefault()) 
+                .ToList()
+                .Select(p => new
+                {
+                    TenSanPham = p.TenSanPham,
+                    SizeID = p.SizeID,
+                    p.Gia,
+                    p.HinhAnh
+                });
+
+            return Json(suggestions, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

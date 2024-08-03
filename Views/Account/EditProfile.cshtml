@@ -58,6 +58,93 @@
     }
 </style>
 
+<style>
+    .profile-header {
+        background-color: #f5f5dc; /* Light beige background */
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-header h2 {
+        font-size: 2rem;
+        color: #333;
+        margin: 0;
+    }
+
+    .profile-container {
+        border: 1px solid #ddd; /* Light grey border */
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #fff; /* White background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        max-width: 1100px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+
+    .profile-image-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-image-wrapper img {
+        width: 250px;
+        height: 310px;
+        object-fit: cover; /* Ensures the image covers the area */
+        border-radius: 8px;
+        border: 1px solid #ddd; /* Light grey border */
+    }
+
+    .form-group {
+        margin-top: 15px;
+        color: #555;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color:darkgoldenrod;
+    }
+
+    .form-group input {
+        width: calc(100% - 12px); /* Adjusted for padding */
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 4px;
+        border: 1px solid #ddd; /* Light grey border */
+        font-size: 1rem;
+        box-sizing: border-box; /* Ensures padding is included in width */
+    }
+
+    .form-group input[type="file"] {
+        padding: 0; /* Remove padding for file input */
+    }
+
+    .submit-button-wrapper {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .submit-button-wrapper button {
+        padding: 10px 25px;
+        background-color: #4682b4; /* Steel blue */
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-button-wrapper button:hover {
+        background-color: #4169e1; /* Royal blue */
+    }
+</style>
+
 <div class="about_name">
     <h2>TÀI KHOẢN NGƯỜI DÙNG</h2>
 </div>
@@ -65,48 +152,46 @@
 @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.CustomerID)
-    <div class="bao_phu">
+    <div class="profile-container">
         <div class="row">
             <div class="col-5" style="display: flex; flex-direction: column; align-items: center;">
-                <div class="hinh_anh">
+                <div class="profile-image-wrapper">
                     <img id="profileImage" src="~/image/Anh_thihoa/@Model.ProfileImage" alt="Profile Image">
                 </div>
                 <input type="file" id="ProfilePicture" name="ProfilePicture" accept="image/*" onchange="previewImage(event)">
             </div>
             <div class="col-7">
-                <div class="chinh_sua">
+                <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-                            <label for="FullName">Name:</label>
-                            @*@Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })*@
-
-                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                            <label for="FullName">Họ và tên:</label>
+                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "custom-input" } })
                             @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
 
                             <label for="Email">Email:</label>
-                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type = "email" })
+                            @Html.TextBoxFor(model => model.Email, new { @class = "custom-input", type = "email" })
 
                             <label for="SoDienThoai">Số điện thoại:</label>
-                            @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "custom-input" })
 
                             <label for="DiaChi">Địa chỉ:</label>
-                            @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.DiaChi, new { @class = "custom-input" })
                         </div>
                         <div class="col-6">
                             <label for="NgaySinh">Ngày sinh:</label>
-                            @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "custom-input", type = "date" })
 
                             <label for="Username">Username:</label>
-                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                            @Html.TextBoxFor(model => model.Username, new { @class = "custom-input" })
 
                             <label for="Password">Password:</label>
-                            @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password" })
+                            @Html.TextBoxFor(model => model.Password, new { @class = "custom-input", type = "password" })
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="button_luu">
-                <button type="submit" style="padding: 8px 20px; background-color:cadetblue; border-radius:8px; font-family:'Times New Roman', Times, serif; font-size:16px;">Lưu thông tin</button>
+            <div class="submit-button-wrapper">
+                <button type="submit">Lưu thông tin</button>
             </div>
         </div>
     </div>

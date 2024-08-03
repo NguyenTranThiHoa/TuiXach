@@ -1,0 +1,76 @@
+﻿@model IEnumerable<TuiXach.ViewModel.SanPhamViewModel>
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+}
+
+<h2>Kết quả tìm kiếm cho "@ViewBag.SearchTerm"</h2>
+
+<div class="tuido">
+    @foreach (var product in Model)
+    {
+        <div class="anh_tiep">
+            <a href="@Url.Action("ChiTietSanPham", "SanPham", new { maSanPham = product.SanPhamID })" title="Xem chi tiết">
+                <img src="~/image/Anh_tuixach/@product.HinhAnh" alt="@product.TenSanPham">
+            </a>
+            <div class="name">@product.TenSanPham</div>
+            <div class="desc">@Html.FormatValue(product.Gia, "{0:#,###}") VND</div>
+        </div>
+    }
+</div>
+
+<style>
+    .tuido {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        width: 90%;
+        margin: 200px auto;
+    }
+
+    .anh_tiep {
+        border: 1px solid #ccc;
+        overflow: hidden;
+        transition: .5s ease;
+        position: relative;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .anh_tiep:hover {
+            border: 1px solid #777;
+        }
+
+        .anh_tiep img {
+            width: 100%;
+            height: 380px;
+            transition: transform 0.5s ease;
+        }
+
+        .anh_tiep:hover img {
+            transform: scale(1.1);
+        }
+
+    .name {
+        text-align: center;
+        margin-top: 20px;
+        height: 50px;
+        overflow: hidden;
+    }
+
+    .desc {
+        padding: 15px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        font-weight: bold;
+    }
+
+    .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>

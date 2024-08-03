@@ -27,12 +27,21 @@
                 </div>
 
                 <!--OKE-->
-                <div class="col-6" style="display: block">
-                    <div class="timkiem" style="display: flex; align-items: center;">
-                        <input type="text" class="input-timkiem" placeholder="Tìm kiếm sản phẩm..." />
-                        <button class="btn_timkiem" type="button">Tìm kiếm</button>
+                <!--<form action="@Url.Action("Search", "SanPham")" method="get" class="col-6" style="display:block">-->
+                @*<div class="col-6" style="display: block">*@
+                <!--<div class="timkiem" style="display: flex; align-items: center;">
+        <input type="text" class="input-timkiem" placeholder="Tìm kiếm sản phẩm..." />
+        <button class="btn_timkiem" type="submit">Tìm kiếm</button>
+    </div>-->
+                @*</div>*@
+                <!--</form>-->
+
+                <form action="@Url.Action("Search", "SanPham")" method="get" class="col-6" style="display:block">
+                    <div class="timkiem" style="display: flex; align-items: center; position: relative;">
+                        <input type="text" id="searchInput" class="input-timkiem" name="searchTerm" placeholder="Tìm kiếm sản phẩm..." autocomplete="off" />
+                        <button class="btn_timkiem" type="submit">Tìm kiếm</button>
                     </div>
-                </div>
+                </form>
 
                 <!--OKE-->
                 <div class="col-3" style="display: flex;">

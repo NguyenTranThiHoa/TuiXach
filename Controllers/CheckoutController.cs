@@ -97,7 +97,7 @@ namespace TuiXach.Controllers
             var order = new Order
             {
                 CustomerID = customer.CustomerID,
-                TrangThaiDonHang = "Đã gửi đơn hàng",
+                TrangThaiDonHang = "Đang trên đường giao hàng",
                 NgayDat = DateTime.Now
             };
             db.Orders.Add(order);
