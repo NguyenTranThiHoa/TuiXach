@@ -59,15 +59,22 @@ namespace QLAdmin.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddDanhmuc(DanhmucVM formData)
         {
-            var item = new PhanLoai();
-            item.TenPhanLoai = formData.TenPhanLoai;
+            if (ModelState.IsValid)
+            {
+                var item = new PhanLoai
+                {
+                    TenPhanLoai = formData.TenPhanLoai
+                };
 
-            _context.PhanLoais.Add(item);
+                _context.PhanLoais.Add(item);
+                _context.SaveChanges();
 
-            _context.SaveChanges();// save to DB
-            return RedirectToAction("Index", "QLDanhmuc");
+                return RedirectToAction("Index", "QLDanhmuc");
+            }
+
+            // If validation fails, return the same view with validation messages
+            return View(formData);
         }
-
         [HttpGet]
         public ActionResult EditDanhmuc(int id)
         {

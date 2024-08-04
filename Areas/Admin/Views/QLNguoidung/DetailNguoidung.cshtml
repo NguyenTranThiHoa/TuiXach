@@ -53,7 +53,7 @@
                         <dd class="col-sm-8">
                             @if (!string.IsNullOrEmpty(Model.ProfileImage))
                             {
-                                <img src="@Model.ProfileImage" alt="Profile Image" class="img-fluid rounded" style="max-width: 150px;" />
+                               <img src="@Url.Content("~/Areas/img/" + Model.ProfileImage)" alt="Profile Image" class="img-thumbnail" style="max-width: 200px;" />
                             }
                             else
                             {

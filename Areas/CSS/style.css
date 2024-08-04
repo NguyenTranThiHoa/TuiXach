@@ -37,13 +37,11 @@ h4 {
     display: flex;
     width: 100%;
 }
-.navbar {
-    background-color: #EEE8AA; /* Màu nền mới */
-}
+
 #sidebar {
     max-width: 264px;
     min-width: 264px;
-    background: #BDB76B;
+    background-color:burlywood;
     transition: all 0.35s ease-in-out;
 }
 
@@ -95,8 +93,8 @@ a.sidebar-link {
    
 }
 a.sidebar-link:hover {
-    background:#DEB887;
-    color:#D2691E;
+    background:#bd5b2a;
+    color:#FFF;
 }
 
     .sidebar-link[data-bs-toggle="collapse"]::after {

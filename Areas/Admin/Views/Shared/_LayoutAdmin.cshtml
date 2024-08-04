@@ -66,16 +66,26 @@
 
         </aside>
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: antiquewhite ">
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse navbar">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto">
+                      
+                        <li class="nav-item d-flex align-items-center">
+                            <span class="me-3">@ViewBag.UserName</span>
+                        </li>
+
+                       
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="~/Areas/img/tải xuống (1).jpg" class="avatar img-fluid rounded-circle" alt="">
+                                <img src="~/Areas/img/tải xuống (1).jpg" class="avatar img-fluid rounded-circle" alt="" style="width: 40px; height: 40px;">
                             </a>
+                            
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                              <</ul>
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Logout", "Account")" class="nav-link">

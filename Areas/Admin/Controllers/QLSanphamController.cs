@@ -15,9 +15,10 @@ namespace QLAdmin.Areas.Admin.Controllers
     {
         // GET: Admin/QLSanphamDefault
         private QLTuisach _context = new QLTuisach();
-        public ActionResult Index(string search, int page = 1)
+        public ActionResult Index(string searchTerm, int page = 1)
         {
             int pageSize = 8;
+
 
             // Lấy dữ liệu sản phẩm từ cơ sở dữ liệu với liên kết các bảng khác
             var lstsanpham = (from s in _context.SanPhams
@@ -36,13 +37,15 @@ namespace QLAdmin.Areas.Admin.Controllers
                               });
 
             // Log giá trị tìm kiếm
-            System.Diagnostics.Debug.WriteLine($"Tìm kiếm: {search}");
+            System.Diagnostics.Debug.WriteLine($"Tìm kiếm: {searchTerm}");
 
             // Áp dụng tìm kiếm nếu có từ khóa tìm kiếm
-            if (!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                lstsanpham = lstsanpham.Where(p => p.TenSanPham.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0);
+                lstsanpham = lstsanpham.Where(p => p.TenSanPham.Contains(searchTerm) || p.PhanLoai.Contains(searchTerm));
+
             }
+           
 
             // Log số lượng sản phẩm sau khi lọc
             System.Diagnostics.Debug.WriteLine($"Số lượng sản phẩm sau lọc: {lstsanpham.Count()}");
@@ -51,11 +54,12 @@ namespace QLAdmin.Areas.Admin.Controllers
             var pagedProducts = lstsanpham.ToPagedList(page, pageSize);
 
             // Đưa từ khóa tìm kiếm về view
-            ViewBag.SearchTerm = search;
+            ViewBag.SearchTerm = searchTerm;
 
             // Trả về view với dữ liệu phân trang
             return View(pagedProducts);
         }
+
         public ActionResult DetailSP(int id)
         {
             var item = _context.SanPhams.Where(x => x.SanPhamID == id).Select(t => new SanphamVM()
@@ -94,37 +98,48 @@ namespace QLAdmin.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddSP(SanphamVM formData, HttpPostedFileBase fileUpload)
         {
-            var item = new SanPham();
-            item.TenSanPham = formData.TenSanPham;
-            item.Gia = formData.Gia;
-            item.MoTa = formData.MoTa;
-            item.SoLuong = formData.SoLuong;
-            item.SizeID = formData.SizeID;
-            item.PhanLoaiID = formData.PhanLoaiID;
+            if (!ModelState.IsValid)
+            {
+                var lstSize = _context.ProductSizes.OrderBy(x => x.Size).ToList();
+                var lstPL = _context.PhanLoais.OrderBy(x => x.TenPhanLoai).ToList();
+
+                ViewBag.SizeID = new SelectList(lstSize, "SizeID", "Size");
+                ViewBag.PhanLoaiID = new SelectList(lstPL, "PhanLoaiID", "TenPhanLoai");
+
+                return View(formData);
+            }
+
+            var item = new SanPham
+            {
+                TenSanPham = formData.TenSanPham,
+                Gia = formData.Gia,
+                MoTa = formData.MoTa,
+                SoLuong = formData.SoLuong,
+                SizeID = formData.SizeID,
+                PhanLoaiID = formData.PhanLoaiID
+            };
+
             if (fileUpload != null && fileUpload.ContentLength > 0)
             {
-                //get filename
-                var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
-                //get path
+                var fileName = Path.GetFileName(fileUpload.FileName);
                 var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
 
-                //ktra image exist
                 if (System.IO.File.Exists(path))
                 {
-                    ViewBag.mesage = "Ảnh này đã tồn tại!";
+                    ViewBag.Message = "Ảnh này đã tồn tại!";
                 }
                 else
                 {
                     fileUpload.SaveAs(path);
-                    //lưu file name vào DB ảnh bìa
                     item.HinhAnh = fileName;
                 }
             }
 
             _context.SanPhams.Add(item);
-            _context.SaveChanges();// save to DB
+            _context.SaveChanges();
             return RedirectToAction("Index", "QLSanpham");
         }
+
         [HttpGet]
         public ActionResult DeleteSP(int id)
         {
@@ -210,10 +225,13 @@ namespace QLAdmin.Areas.Admin.Controllers
                 // Check if image already exists
 
                 // Delete old image if it exists
-                var oldImagePath = Path.Combine(Server.MapPath("~/Areas/img/"), item.HinhAnh);
-                if (System.IO.File.Exists(oldImagePath))
+                if (!string.IsNullOrEmpty(item.HinhAnh))
                 {
-                    System.IO.File.Delete(oldImagePath);
+                    var oldImagePath = Path.Combine(Server.MapPath("~/Areas/img/"), item.HinhAnh);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
                 }
 
                 // Save new image

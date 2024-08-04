@@ -52,15 +52,22 @@ namespace QLAdmin.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddSize(KichthuocVM formData)
         {
-            var item = new ProductSize();
-            item.Size = formData.Size;
+            if (ModelState.IsValid)
+            {
+                var item = new ProductSize
+                {
+                    Size = formData.Size
+                };
 
-            _context.ProductSizes.Add(item);
+                _context.ProductSizes.Add(item);
+                _context.SaveChanges();
 
-            _context.SaveChanges();// save to DB
-            return RedirectToAction("Index", "QLSize");
+                return RedirectToAction("Index", "QLSize");
+            }
+
+            // If validation fails, return the same view with error messages
+            return View(formData);
         }
-
         [HttpGet]
         public ActionResult EditSize(int id)
         {

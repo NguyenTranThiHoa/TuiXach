@@ -2,7 +2,9 @@
 using QLAdmin.Areas.Admin.Helpers;
 using QLAdmin.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace QLAdmin.Areas.Admin.Controllers
@@ -73,11 +75,10 @@ namespace QLAdmin.Areas.Admin.Controllers
 
         [HttpPost]
         [CustomAuthorize("Admin")]
-        public ActionResult AddND(NguoiDungVM formData)
+        public ActionResult AddND(NguoiDungVM formData, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
-
                 var item = new Customer
                 {
                     FullName = formData.FullName,
@@ -85,23 +86,38 @@ namespace QLAdmin.Areas.Admin.Controllers
                     NgaySinh = formData.NgaySinh,
                     DiaChi = formData.DiaChi,
                     Email = formData.Email,
-                    ProfileImage = formData.ProfileImage,
                     Username = formData.Username,
                     Password = formData.Password,
                     VaiTro = formData.VaiTro
                 };
+
+                // Xử lý ảnh nếu có
+                if (fileUpload != null && fileUpload.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(fileUpload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
+                    fileUpload.SaveAs(path);
+                    item.ProfileImage = fileName; // Lưu tên file vào thuộc tính ProfileImage
+                }
+                else
+                {
+                    item.ProfileImage = null; // Nếu không có ảnh, đặt giá trị null
+                }
+
                 _context.Customers.Add(item);
                 _context.SaveChanges();
                 return RedirectToAction("QLNguoidung");
             }
 
+            // Cung cấp danh sách vai trò để hiển thị lại trên form nếu có lỗi
             formData.VaiTroList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "User", Text = "User" },
-                new SelectListItem { Value = "Admin", Text = "Admin" }
-            };
+    {
+        new SelectListItem { Value = "User", Text = "User" },
+        new SelectListItem { Value = "Admin", Text = "Admin" }
+    };
             return View(formData);
         }
+
 
         [HttpGet]
         [CustomAuthorize("Admin")]
@@ -136,7 +152,7 @@ namespace QLAdmin.Areas.Admin.Controllers
 
         [HttpPost]
         [CustomAuthorize("Admin")]
-        public ActionResult EditNguoidung(NguoiDungVM formData)
+        public ActionResult EditNguoidung(NguoiDungVM formData, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
@@ -148,20 +164,42 @@ namespace QLAdmin.Areas.Admin.Controllers
                     item.NgaySinh = formData.NgaySinh;
                     item.DiaChi = formData.DiaChi;
                     item.Email = formData.Email;
-                    item.ProfileImage = formData.ProfileImage;
                     item.Username = formData.Username;
                     item.Password = formData.Password;
                     item.VaiTro = formData.VaiTro;
+
+                    // Xử lý ảnh nếu có
+                    if (fileUpload != null && fileUpload.ContentLength > 0)
+                    {
+                        var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
+                        fileUpload.SaveAs(path);
+
+                        // Kiểm tra nếu ProfileImage không rỗng hoặc null trước khi xóa ảnh cũ
+                        if (!string.IsNullOrEmpty(item.ProfileImage))
+                        {
+                            var oldImagePath = Path.Combine(Server.MapPath("~/Areas/img/"), item.ProfileImage);
+                            if (System.IO.File.Exists(oldImagePath))
+                            {
+                                System.IO.File.Delete(oldImagePath);
+                            }
+                        }
+
+                        // Cập nhật đường dẫn ảnh mới
+                        item.ProfileImage = fileName;
+                    }
+
+
                     _context.SaveChanges();
+                    return RedirectToAction("QLNguoidung");
                 }
-                return RedirectToAction("QLNguoidung");
             }
 
             formData.VaiTroList = new List<SelectListItem>
-            {
-                new SelectListItem { Value = "User", Text = "User" },
-                new SelectListItem { Value = "Admin", Text = "Admin" }
-            };
+    {
+        new SelectListItem { Value = "User", Text = "User" },
+        new SelectListItem { Value = "Admin", Text = "Admin" }
+    };
             return View(formData);
         }
 

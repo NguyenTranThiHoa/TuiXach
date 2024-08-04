@@ -3,6 +3,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!-- Link đến FontAwesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <div class="container-fluid mt-4">
@@ -66,5 +67,30 @@
                 </h5>
             </div>
         </div>
+        <!-- Thêm biểu đồ cho đơn hàng theo tháng -->
+        <canvas id="monthlyOrdersChart" style="width:100%;max-width:600px; margin-left: 150px;"></canvas>
+
+        <script>
+    const months = @Html.Raw(Json.Encode(ViewBag.Months));
+    const monthlyOrders = @Html.Raw(Json.Encode(ViewBag.MonthlyOrders));
+
+    new Chart("monthlyOrdersChart", {
+        type: "bar",
+        data: {
+            labels: months,
+            datasets: [{
+                backgroundColor: "antiquewhite",
+                data: monthlyOrders
+            }]
+        },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: "Số lượng đơn hàng theo tháng"
+            }
+        }
+    });
+        </script>
     </div>
 </div>

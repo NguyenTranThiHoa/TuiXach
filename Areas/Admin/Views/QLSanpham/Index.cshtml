@@ -16,7 +16,7 @@
     </p>
 
     <!-- Form tìm kiếm -->
-    <form method="get" action="@Url.Action("Index")" class="mb-4 d-flex justify-content-end">
+    <form method="get" action="@Url.Action("Index","QLSanpham")" class="mb-4 d-flex justify-content-end">
         <div class="input-group rounded-pill overflow-hidden" style="max-width: 400px;">
             <input type="text" name="searchTerm" class="form-control rounded-pill" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchTerm" />
             <button class="btn btn-primary rounded-pill" type="submit">

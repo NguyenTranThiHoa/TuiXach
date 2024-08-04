@@ -233,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\QLSanphamDefault\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\QLDashboard\" />
   </ItemGroup>
