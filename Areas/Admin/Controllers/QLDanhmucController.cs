@@ -16,9 +16,8 @@ namespace QLAdmin.Areas.Admin.Controllers
     {
         // GET: Admin/QLDanhmuc
         private QLTuisach _context = new QLTuisach();
-        public ActionResult Index(string search, int page = 1)
+        public ActionResult Index()
         {
-            int pageSize = 10;
             var lstphanloai = (from s in _context.PhanLoais
                                 orderby s.PhanLoaiID ascending//descending
                                 select new DanhmucVM()

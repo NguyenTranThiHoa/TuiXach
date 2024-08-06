@@ -26,8 +26,8 @@ namespace QLAdmin.Models
 
         public DateTime? OrderDate { get; set; }
 
-        [StringLength(10)]
-        public string Size { get; set; }
+      
+        public int? SizeID { get; set; }
 
         public virtual Order Order { get; set; }
 

@@ -58,6 +58,7 @@
                                 <th scope="col">STT</th>
                                 <th scope="col">Tên sản phẩm</th>
                                 <th scope="col">Ảnh</th>
+                                <th scope="col">Size</th>
                                 <th scope="col">Đơn Giá</th>
                                 <th scope="col">Số lượng</th>
                                 <th scope="col">Thành tiền</th>
@@ -73,6 +74,7 @@
                                     <td>
                                         <img src="@Url.Content("~/Areas/img/" + item.HinhAnh)" class="img-thumbnail" style="width: 80px; height: 80px;" alt="Img">
                                     </td>
+                                    <td>@item.Size</td> <!-- Sửa từ SizeID thành Size -->
                                     <td>@(item.Gia?.ToString("N0") + " VNĐ")</td>
                                     <td>@item.SoLuong</td>
                                     <td>@(item.TongTien?.ToString("N0") + " VNĐ")</td>

@@ -26,7 +26,7 @@ namespace QLAdmin.Areas.Admin.Controllers
                              Gia = o.Gia,
                              TongTien = o.TongTien,
                              OrderDate = o.OrderDate,
-                             Size = o.Size
+                             //SizeID = o.SizeID
                          };
 
             var orderList = orders.ToList();

@@ -13,9 +13,11 @@ namespace QLAdmin.Areas.Admin.Data
         [Display(Name = "Họ Tên")]
         public string FullName { get; set; }
         [Required(ErrorMessage = "Ngày sinh không được để trống")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Ngày sinh")]
         public DateTime? NgaySinh { get; set; }
         [Required(ErrorMessage = "Số điện thoại không được để trống")]
+        [StringLength(10, ErrorMessage = "Số điện thoại không được quá 10 chữ số")]
         [Display(Name = "Số điện thoại")]
         public string SoDienThoai { get; set; }
         [Required(ErrorMessage = "Địa chỉ không được để trống ")]

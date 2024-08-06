@@ -43,7 +43,9 @@
             <div class="form-group row mb-3">
                 @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-10">
-                    <input type="file" name="fileUpload" Value="file" />
+                    <input type="file" name="fileUpload" value="File" id="fileUpload" onchange="previewImage(event)" />
+                    <img id="imagePreview" src="#" alt="Image Preview" style="max-height: 200px; display: none; margin-top: 10px;" />
+                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -84,3 +86,15 @@
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

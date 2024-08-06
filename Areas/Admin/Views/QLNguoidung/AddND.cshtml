@@ -16,7 +16,7 @@
         <div class="form-horizontal">
             <h4>Thông Tin Người Dùng</h4>
             <hr />
-          
+
 
             <div class="form-group row mb-3">
                 @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "col-md-2 col-form-label" })
@@ -29,15 +29,14 @@
             <div class="form-group row mb-3">
                 @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.NgaySinh, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
                 </div>
             </div>
 
             <div class="form-group row mb-3">
                 @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.TextBoxFor(model => model.SoDienThoai, new { @class = "form-control", @maxlength = "10", @oninput = "this.value=this.value.replace(/[^0-9]/g,'');" })
                     @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -61,7 +60,9 @@
             <div class="form-group row mb-3">
                 @Html.LabelFor(model => model.ProfileImage, htmlAttributes: new { @class = "col-md-2 col-form-label" })
                 <div class="col-md-10">
-                    <input type="file" name="fileUpload" Value="file" />
+                    <input type="file" name="fileUpload" value="File" id="fileUpload" onchange="previewImage(event)" />
+                    <img id="imagePreview" src="#" alt="Image Preview" style="max-height: 200px; display: none; margin-top: 10px;" />
+                    @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -103,3 +104,14 @@
         </div>
     }
 </div>
+<script type="text/javascript">
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

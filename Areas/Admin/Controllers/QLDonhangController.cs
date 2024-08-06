@@ -28,7 +28,7 @@ namespace QLAdmin.Areas.Admin.Controllers
             return View(orders);
         }
 
-      
+
         public ActionResult Details(int id)
         {
             var order = (from o in _context.Orders
@@ -37,16 +37,18 @@ namespace QLAdmin.Areas.Admin.Controllers
                          select new DonhangVM
                          {
                              OrderID = o.OrderID,
-                             CustomerID= c.FullName,
+                             CustomerID = c.FullName,
                              TrangThaiDonHang = o.TrangThaiDonHang,
                              NgayDat = o.NgayDat,
-                             Customer = o.Customer
+                             Customer = c
                          }).FirstOrDefault();
 
             if (order == null)
                 return HttpNotFound();
 
             var orderItems = (from oi in _context.OrderDetails
+                              join sp in _context.SanPhams on oi.SanPhamID equals sp.SanPhamID
+                              join sz in _context.ProductSizes on oi.SizeID equals sz.SizeID
                               where oi.OrderID == id
                               select new CTDonhangVM
                               {
@@ -58,13 +60,14 @@ namespace QLAdmin.Areas.Admin.Controllers
                                   TongTien = oi.TongTien,
                                   HinhAnh = oi.HinhAnh,
                                   OrderDate = oi.OrderDate,
-                                  Size = oi.Size,
-                                  SanPham = oi.SanPham
+                                  Size = sz.Size,
+                                  SanPham = sp
                               }).ToList();
 
             ViewBag.OrderItems = orderItems;
             return View(order);
         }
+
 
         [HttpPost]
         public ActionResult UpdateStatus(int id, string status)

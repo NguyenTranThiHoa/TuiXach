@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+
 namespace QLAdmin.Areas.Admin.Controllers
 {
     public class QLSanphamController : Controller
@@ -45,7 +46,7 @@ namespace QLAdmin.Areas.Admin.Controllers
                 lstsanpham = lstsanpham.Where(p => p.TenSanPham.Contains(searchTerm) || p.PhanLoai.Contains(searchTerm));
 
             }
-           
+
 
             // Log số lượng sản phẩm sau khi lọc
             System.Diagnostics.Debug.WriteLine($"Số lượng sản phẩm sau lọc: {lstsanpham.Count()}");
@@ -70,7 +71,7 @@ namespace QLAdmin.Areas.Admin.Controllers
                 MoTa = t.MoTa,
                 SoLuong = t.SoLuong,
                 HinhAnh = t.HinhAnh,
-                SizeID= t.SizeID,
+                SizeID = t.SizeID,
                 PhanLoaiID = t.PhanLoaiID,
             }).FirstOrDefault();
             if (item != null)
@@ -119,22 +120,21 @@ namespace QLAdmin.Areas.Admin.Controllers
                 PhanLoaiID = formData.PhanLoaiID
             };
 
-            if (fileUpload != null && fileUpload.ContentLength > 0)
+            // get fileName
+            var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
+            //get path
+            var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
+            // Kiểm tra file có tồn tại ko?
+            if (System.IO.File.Exists(path))
             {
-                var fileName = Path.GetFileName(fileUpload.FileName);
-                var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
-
-                if (System.IO.File.Exists(path))
-                {
-                    ViewBag.Message = "Ảnh này đã tồn tại!";
-                }
-                else
-                {
-                    fileUpload.SaveAs(path);
-                    item.HinhAnh = fileName;
-                }
+                ViewBag.message = "Ảnh này đã tồn tại";
+            }
+            else
+            {
+                fileUpload.SaveAs(path);
             }
 
+            item.HinhAnh = fileName;
             _context.SanPhams.Add(item);
             _context.SaveChanges();
             return RedirectToAction("Index", "QLSanpham");
@@ -148,10 +148,10 @@ namespace QLAdmin.Areas.Admin.Controllers
                 SanPhamID = x.SanPhamID,
                 TenSanPham = x.TenSanPham,
                 Gia = x.Gia,
-                SoLuong =x.SoLuong,
-                MoTa = x.MoTa,  
-                SizeID = x.SizeID,  
-                PhanLoaiID = x.PhanLoaiID,  
+                SoLuong = x.SoLuong,
+                MoTa = x.MoTa,
+                SizeID = x.SizeID,
+                PhanLoaiID = x.PhanLoaiID,
 
             }).FirstOrDefault();
             return View(item);
@@ -193,59 +193,65 @@ namespace QLAdmin.Areas.Admin.Controllers
                       }).FirstOrDefault();
             if (sp == null)
             {
-                return RedirectToAction("Index", "QlSanpham");
+                return RedirectToAction("Index", "QLSanpham");
             }
             return View(sp);
         }
 
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditSP(SanphamVM formData, HttpPostedFileBase fileUpload)
         {
-            var item = _context.SanPhams.Where(x => x.SanPhamID == formData.SanPhamID).FirstOrDefault();
-            if (item == null)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "QLSanpham");
-            }
-
+                var item = _context.SanPhams.Where(x => x.SanPhamID == formData.SanPhamID).FirstOrDefault();
+                if (item == null)
+                {
+                    return RedirectToAction("Index", "QLSanpham");
+                }
             item.TenSanPham = formData.TenSanPham;
             item.Gia = formData.Gia;
             item.MoTa = formData.MoTa;
             item.SoLuong = formData.SoLuong;
             item.SizeID = formData.SizeID;
             item.PhanLoaiID = formData.PhanLoaiID;
-
-            if (fileUpload != null && fileUpload.ContentLength > 0)
-            {
-                // Get filename
-                var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
-                // Get path
-                var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
-
-                // Check if image already exists
-
-                // Delete old image if it exists
-                if (!string.IsNullOrEmpty(item.HinhAnh))
+                if (fileUpload != null && fileUpload.ContentLength > 0)
                 {
-                    var oldImagePath = Path.Combine(Server.MapPath("~/Areas/img/"), item.HinhAnh);
-                    if (System.IO.File.Exists(oldImagePath))
+                    // Get filename
+                    var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
+                    // Get path
+                    var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
+
+
+
+                    // Check if old image exists and delete it
+                    if (!string.IsNullOrEmpty(item.HinhAnh))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        var oldImagePath = Path.Combine(Server.MapPath("~/Areas/img/"), item.HinhAnh);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
                     }
+
+                    // Save new image
+                    fileUpload.SaveAs(path);
+                    // Update image name in the database
+                    item.HinhAnh = fileName;
+
                 }
 
-                // Save new image
-                fileUpload.SaveAs(path);
-                // Update image name in the database
-                item.HinhAnh = fileName;
-
+                _context.Entry(item).State = EntityState.Modified;
+                _context.SaveChanges(); // Save to DB
+                return RedirectToAction("Index", "QLSanpham");
             }
+            var lstSize = _context.ProductSizes.OrderBy(x => x.Size).ToList();
+            var lstPL = _context.PhanLoais.OrderBy(x => x.TenPhanLoai).ToList();
 
-            _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges(); // Save to DB
-            return RedirectToAction("Index", "QLSanpham");
+            ViewBag.SizeID = new SelectList(lstSize, "SizeID", "Size");
+            ViewBag.PhanLoaiID = new SelectList(lstPL, "PhanLoaiID", "TenPhanLoai");
+            return View(formData);
         }
-        
-    }
 
+    }
 }

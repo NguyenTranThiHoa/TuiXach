@@ -25,7 +25,7 @@ namespace QLAdmin.Areas.Admin.Data
         public DateTime? OrderDate { get; set; }
 
         public string Size { get; set; }
-
+       
         public virtual Order Order { get; set; }
 
         public virtual SanPham SanPham { get; set; }
