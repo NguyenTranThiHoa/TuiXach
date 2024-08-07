@@ -7,8 +7,7 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="~/Areas/CSS/style.css">
+    <link rel="stylesheet" href="@Url.Content("~/Areas/CSS/style.css")">
 </head>
 <body>
     <div class="wrapper">
@@ -20,13 +19,13 @@
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="@Url.Action("Index","QLAdmin")" class="sidebar-link">
+                        <a href="@Url.Action("Index", "QLAdmin")" class="sidebar-link">
                             <i class="fa-solid fa-tachometer-alt pe-2"></i>
                             TRANG CHỦ
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="@Url.Action("QLNguoidung","QLNguoidung")" class="sidebar-link">
+                        <a href="@Url.Action("QLNguoidung", "QLNguoidung")" class="sidebar-link">
                             <i class="fa-regular fa-user pe-2"></i>
                             NGƯỜI DÙNG
                         </a>
@@ -38,7 +37,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="@Url.Action( "Index","QLDanhmuc")" class="sidebar-link">
+                        <a href="@Url.Action("Index", "QLDanhmuc")" class="sidebar-link">
                             <i class="fa-solid fa-th-list pe-2"></i>
                             PHÂN LOẠI
                         </a>
@@ -63,7 +62,6 @@
                     </li>
                 </ul>
             </div>
-
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: antiquewhite ">
@@ -72,20 +70,16 @@
                 </button>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav ms-auto">
-                      
                         <li class="nav-item d-flex align-items-center">
                             <span class="me-3">@ViewBag.UserName</span>
                         </li>
-
-                       
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="~/Areas/img/tải xuống (1).jpg" class="avatar img-fluid rounded-circle" alt="" style="width: 40px; height: 40px;">
+                                <img src="@Url.Content("~/Areas/img/tải xuống (1).jpg")" class="avatar img-fluid rounded-circle" alt="" style="width: 40px; height: 40px;">
                             </a>
-                            
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
-                              <</ul>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("Logout", "Account")" class="nav-link">
@@ -110,14 +104,12 @@
                                 </a>
                             </p>
                         </div>
-
                     </div>
                 </div>
             </footer>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
-    <script src="~/Areas/JS/script.js"></script>
+    <script src="@Url.Content("~/Areas/JS/script.js")"></script>
 </body>
 </html>

@@ -15,8 +15,6 @@
         <div class="form-horizontal">
             <h4>Thông Tin Danh Mục</h4>
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-
             <div class="form-group row mb-3">
                 @Html.HiddenFor(model => model.PhanLoaiID)
                 @* Để không hiển thị `HiddenFor` cho `PhanLoaiID`, bạn có thể dùng `HiddenFor` mà không có thêm thẻ `<div>` nếu không cần hiển thị nó. *@

@@ -9,6 +9,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using QLAdmin.Areas.Admin.Helpers;
+
 
 namespace QLAdmin.Areas.Admin.Controllers
 {
@@ -209,20 +211,19 @@ namespace QLAdmin.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Index", "QLSanpham");
                 }
-            item.TenSanPham = formData.TenSanPham;
-            item.Gia = formData.Gia;
-            item.MoTa = formData.MoTa;
-            item.SoLuong = formData.SoLuong;
-            item.SizeID = formData.SizeID;
-            item.PhanLoaiID = formData.PhanLoaiID;
+                item.TenSanPham = formData.TenSanPham;
+                item.Gia = formData.Gia;
+                item.MoTa = formData.MoTa;
+                item.SoLuong = formData.SoLuong;
+                item.SizeID = formData.SizeID;
+                item.PhanLoaiID = formData.PhanLoaiID;
+
                 if (fileUpload != null && fileUpload.ContentLength > 0)
                 {
                     // Get filename
                     var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
                     // Get path
                     var path = Path.Combine(Server.MapPath("~/Areas/img/"), fileName);
-
-
 
                     // Check if old image exists and delete it
                     if (!string.IsNullOrEmpty(item.HinhAnh))
@@ -238,13 +239,23 @@ namespace QLAdmin.Areas.Admin.Controllers
                     fileUpload.SaveAs(path);
                     // Update image name in the database
                     item.HinhAnh = fileName;
-
                 }
 
-                _context.Entry(item).State = EntityState.Modified;
-                _context.SaveChanges(); // Save to DB
+                // Save changes to the database
+                _context.SaveChanges();
                 return RedirectToAction("Index", "QLSanpham");
             }
+            else
+            {
+                // Log or debug ModelState errors
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    System.Diagnostics.Debug.WriteLine(error.ErrorMessage);
+                }
+            }
+
+            // Load dropdown lists again for the view
             var lstSize = _context.ProductSizes.OrderBy(x => x.Size).ToList();
             var lstPL = _context.PhanLoais.OrderBy(x => x.TenPhanLoai).ToList();
 
