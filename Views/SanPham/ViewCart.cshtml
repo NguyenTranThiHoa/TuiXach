@@ -37,7 +37,9 @@
                                         <td>@(i + 1)</td>
                                         <td>@item.TenSanPham</td>
                                         <td><img src="~/image/Anh_tuixach/@item.HinhAnh" style="width: 100px; height: auto;" /></td>
-                                        <td>@item.Size</td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m[i].SizeID, new SelectList(item.SizeList, "Value", "Text", item.SizeID), new { @class = "form-control size-selector" })
+                                        </td>
                                         <td>@Html.FormatValue(item.Gia, "{0:#,###}") VND</td>
                                         <td>
                                             <div class="form-group" style="display: flex; align-items: center; font-family: Arial, sans-serif; font-size: 18px;">
@@ -113,9 +115,9 @@ else
             function updateCart() {
                 var $row = $(this).closest('tr');
                 var sanPhamID = $row.data('id');
-                var sizeID = $row.data('sizeid');
+                var sizeID = $row.find('.size-selector').val();
                 var price = parseFloat($row.data('price'));
-                var quantity = parseInt($(this).val());
+                var quantity = parseInt($row.find('.quantity').val());
                 var total = price * quantity;
 
                 // Cập nhật tổng tiền cho sản phẩm
@@ -135,12 +137,7 @@ else
             }
 
             // Xử lý sự kiện thay đổi và mất tiêu điểm
-            $('.quantity').on('change blur', function() {
-                var quantity = parseInt($(this).val());
-                if (isNaN(quantity) || quantity < 1) {
-                    $(this).val(1);
-                    quantity = 1;
-                }
+            $('.quantity, .size-selector').on('change', function() {
                 updateCart.call(this);
             });
 

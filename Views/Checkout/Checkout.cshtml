@@ -27,6 +27,9 @@
         padding: 12px 30px;
         margin-left: 20px;
     }
+    .text-danger {
+        color: red;
+    }
 </style>
 <div class="about_name">
     <h2>THÔNG TIN ĐẶT HÀNG SẢN PHẨM</h2>
@@ -40,25 +43,28 @@
                 <div class="row" style="margin: 0px 25px;">
                     <div class="col-lg-3">
                         <div class="checkout_input">
-                            <p>Họ và tên</p>
+                            <p style="font-weight: bold">Họ và tên</p>
                             @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Nhập họ và tên" })
                         </div>
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-lg-2">
                         <div class="checkout_input">
-                            <p>Số điện thoại:</p>
+                            <p style="font-weight: bold">Số điện thoại:</p>
                             @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại" })
                         </div>
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-lg-3">
                         <div class="checkout_input">
-                            <p>Địa chỉ nhận hàng</p>
+                            <p style="font-weight: bold">Địa chỉ nhận hàng</p>
                             @Html.TextBoxFor(m => m.Address, new { @class = "form-control checkout_input_add", placeholder = "Địa chỉ" })
                         </div>
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
                     </div>
                     <div class="col-lg-3">
                         <div class="checkout_input">
-                            <p>Email:</p>
+                            <p style="font-weight:bold">Email:</p>
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Nhập email" })
                         </div>
                     </div>

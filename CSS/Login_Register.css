@@ -1,12 +1,29 @@
+/* Ensure all form controls take up 100% width of their container */
+.form-control {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background: transparent;
+    color: #000;
+    padding: 10px;
+}
+
+    /* Additional styles for focused input fields */
+    .form-control:focus {
+        outline: none;
+    }
+
+/* The rest of your existing CSS */
 body {
     margin: 0;
     padding: 0;
-    background: url(../imgae/tuixach3.jpg) no-repeat 0px 0px;
+    background: url(../image/tuixach3.jpg) no-repeat 0px 0px;
     min-height: 100vh;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
-    background-image:url(../image/tuixach3.jpg);
+    background-image: url(../image/tuixach3.jpg);
 }
+
 h1 {
     margin: 0;
     color: #ffffff;
@@ -19,7 +36,7 @@ h1 {
 
 h2 {
     margin: 0;
-    color:burlywood;
+    color: burlywood;
     font-size: 35px;
     font-weight: 400;
     text-align: center;
@@ -40,57 +57,44 @@ p.w3l-register-p {
     width: 450px;
     background-color: rgba(0, 0, 0, 0.5117647058823529);
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
     padding: 50px 35px;
 }
 
 .group {
     display: flex;
+    flex-direction: column;
     padding: 15px 5px;
     background-color: #ffffff;
 }
 
-.group i {
-    color: #fc3955;
-    font-size: 20px;
-    padding: 0 10px;
-}
+    .group i {
+        color: #fc3955;
+        font-size: 20px;
+        padding: 0 10px;
+    }
 
 .w3l-form-group {
     margin: 5px 0;
 }
 
-.w3l-form-group label {
-    display: block;
-    font-size: 13px;
-    color: #d2d2d2;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    border: none;
-    box-sizing: border-box;
-    background: transparent;
-    color: #000;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus {
-    outline: none;
-}
+    .w3l-form-group label {
+        display: block;
+        font-size: 13px;
+        color: #d2d2d2;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        font-style: italic;
+    }
 
 button {
-    background-color:coral;
+    background-color: coral;
     color: #ffffff;
     font-size: 13px;
     text-transform: uppercase;
@@ -102,9 +106,9 @@ button {
     border-radius: 6px;
 }
 
-button:hover {
-    background-color: #00BCD4;
-}
+    button:hover {
+        background-color: #00BCD4;
+    }
 
 .forgot {
     display: flex;
@@ -117,6 +121,7 @@ a {
     font-size: 14px;
     text-decoration: none;
 }
+
 .forgot a:hover {
     color: #00BCD4;
 }
@@ -125,7 +130,7 @@ a {
     color: #ffffff;
     text-align: center;
     margin: 0px;
-	font-size: 13px;
+    font-size: 13px;
 }
 
 .register {
@@ -133,67 +138,73 @@ a {
     text-decoration: none;
 }
 
-@media(max-width:768px) {
+@media (max-width: 768px) {
     h1 {
         font-size: 47px;
     }
 }
 
-@media(max-width:667px) {
+@media (max-width: 667px) {
     h1 {
         font-size: 45px;
     }
 }
 
-@media(max-width:640px) {
+@media (max-width: 640px) {
     p.copyright-agileinfo {
         letter-spacing: 1px;
     }
+
     h1 {
         font-size: 43px;
     }
 }
 
-@media(max-width:568px) {
+@media (max-width: 568px) {
     h1 {
         font-size: 40px;
     }
+
     p.copyright-agileinfo {
         font-size: 14px;
     }
 }
 
-@media(max-width:480px) {
+@media (max-width: 480px) {
     .w3l-login-form {
-    margin: 0 3vw;
-}
+        margin: 0 3vw;
+    }
+
     h1 {
         font-size: 38px;
     }
+
     p.copyright-agileinfo {
         line-height: 1.8em;
     }
 }
 
-@media(max-width:414px) {
+@media (max-width: 414px) {
     h1 {
         font-size: 34px;
     }
 }
 
-@media(max-width:384px) {
+@media (max-width: 384px) {
     h1 {
         font-size: 30px;
     }
 }
 
-@media(max-width:320px) {
+@media (max-width: 320px) {
     h1 {
         font-size: 25px;
     }
+
     .forgot p {
         text-align: left;
     }
+
     .forgot {
         display: block;
     }

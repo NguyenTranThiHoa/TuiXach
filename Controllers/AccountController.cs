@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 using System.Reflection;
 using System.IO;
+using Microsoft.SqlServer.Server;
+using TuiXach.ViewModel;
 
 namespace TuiXach.Controllers
 {
@@ -32,7 +34,14 @@ namespace TuiXach.Controllers
                 Session["Username"] = user.Username;
                 Session["UserID"] = user.CustomerID;
 
-                return RedirectToAction("Index", "Home");
+                if (user.VaiTro == "Admin")
+                {
+                    return RedirectToAction("Index", "QLAdmin", new { area = "Admin" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
@@ -58,92 +67,85 @@ namespace TuiXach.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public ActionResult Register(Customer acc)
+        //{
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    // Kiểm tra xem tên đăng nhập đã tồn tại chưa
+        //    //    var user = db.Customers.FirstOrDefault(c => c.Username == acc.Username);
+        //    //    if (user != null)
+        //    //    {
+        //    //        ModelState.AddModelError("", "Tên đăng nhập đã tồn tại.");
+        //    //        return View(acc);
+        //    //    }
+
+        //    //    try
+        //    //    {
+        //    //        // Thêm khách hàng mới vào cơ sở dữ liệu mà không mã hóa mật khẩu
+        //    //        db.Customers.Add(acc);
+        //    //        db.SaveChanges();
+
+        //    //        // Thiết lập session cho khách hàng mới sau khi lưu thành công
+        //    //        Session["Username"] = acc.Username;
+        //    //        Session["UserID"] = acc.CustomerID;
+
+        //    //        return RedirectToAction("Login", "Account");
+        //    //    }
+        //    //    catch (Exception ex)
+        //    //    {
+        //    //        ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
+        //    //    }
+        //    //}
+
+        //    //// Nếu ModelState không hợp lệ, trả lại View với các lỗi
+        //    //return View(acc);
+
+
+        //        //var itemNew = new Customer();
+        //        //itemNew.Email = acc.Email;
+        //        //itemNew.Username = acc.Username;
+        //        //itemNew.Password = acc.Password;
+
+        //        //// Thêm vào
+        //        //db.Customers.Add(itemNew);
+
+        //        //db.SaveChanges(); // save đến cơ sở dữ liệu
+
+        //        //return RedirectToAction("Login", "Account");
+        //}
+
+
         [HttpPost]
-        public ActionResult Register(Customer acc)
+        public ActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = db.Customers.FirstOrDefault(c => c.Username == acc.Username);
-                if (user != null)
+                var userExists = db.Customers.FirstOrDefault(c => c.Email == model.Email);
+                if (userExists != null)
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập đã tồn tại.");
-                    return View(acc);
+                    ModelState.AddModelError("", "Tên Email đã tồn tại.");
+                    return View(model);
                 }
 
-                Session["Username"] = user.Username;
-                Session["UserID"] = user.CustomerID;
+                var newCustomer = new Customer
+                {
+                    Username = model.Username,
+                    Password = model.Password,
+                    Email = model.Email
+                };
 
-                try
-                {
-                    db.Customers.Add(acc);
-                    db.SaveChanges();
-                    return RedirectToAction("Login", "Account");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
-                }
+                db.Customers.Add(newCustomer);
+                db.SaveChanges();
+
+                Session["Username"] = newCustomer.Username;
+                Session["UserID"] = newCustomer.CustomerID;
+
+                return RedirectToAction("Login", "Account");
             }
-            return View(acc);
+
+            return View(model);
         }
-
-        /******************************Chỉnh sửa thông tin người dùng**************************************/
-        //[HttpGet]
-        //public ActionResult EditProfile()
-        //{
-        //    if (Session["Username"] == null)
-        //    {
-        //        return RedirectToAction("Login");
-        //    }
-
-        //    string username = Session["Username"].ToString();
-        //    var customer = db.Customers.FirstOrDefault(c => c.Username == username);
-
-        //    if (customer == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    return View(customer);
-        //}
-
-
-        //[HttpPost]
-        //public ActionResult EditProfile(Customer updatedCustomer, HttpPostedFileBase ProfilePicture)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var customer = db.Customers.FirstOrDefault(c => c.CustomerID == updatedCustomer.CustomerID);
-        //        if (customer != null)
-        //        {
-        //            customer.FullName = updatedCustomer.FullName;
-        //            customer.Email = updatedCustomer.Email;
-        //            customer.SoDienThoai = updatedCustomer.SoDienThoai;
-        //            customer.DiaChi = updatedCustomer.DiaChi;
-        //            customer.NgaySinh = updatedCustomer.NgaySinh;
-        //            customer.Username = updatedCustomer.Username;
-        //            customer.Password = updatedCustomer.Password;
-
-        //            if (ProfilePicture != null && ProfilePicture.ContentLength > 0)
-        //            {
-        //                string path = Path.Combine(Server.MapPath("~/image/Anh_nguoi_dung/"), ProfilePicture.FileName);
-        //                ProfilePicture.SaveAs(path);
-        //                customer.ProfileImage = ProfilePicture.FileName;
-        //            }
-
-        //            try
-        //            {
-        //                db.SaveChanges();
-        //                return RedirectToAction("Index", "Home");
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
-        //            }
-        //        }
-        //    }
-        //    return View(updatedCustomer);
-        //}
 
         /*****************************************************************************/
 
@@ -155,7 +157,7 @@ namespace TuiXach.Controllers
                 return RedirectToAction("Login");
             }
 
-            int userId = (int)Session["UserID"]; // Get user ID from session
+            int userId = (int)Session["UserID"]; 
             var customer = db.Customers.FirstOrDefault(c => c.CustomerID == userId);
 
             if (customer == null)

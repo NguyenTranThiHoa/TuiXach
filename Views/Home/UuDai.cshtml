@@ -53,19 +53,19 @@
         justify-content: space-between;
     }
 
-        .anh_tiep:hover {
-            border: 1px solid #777;
-        }
+    .anh_tiep:hover {
+        border: 1px solid #777;
+    }
 
-        .anh_tiep img {
-            width: 100%;
-            height: 380px;
-            transition: transform 0.5s ease;
-        }
+    .anh_tiep img {
+        width: 100%;
+        height: 380px;
+        transition: transform 0.5s ease;
+    }
 
-        .anh_tiep:hover img {
-            transform: scale(1.1);
-        }
+    .anh_tiep:hover img {
+        transform: scale(1.1);
+    }
 
     .name {
         text-align: center;
@@ -110,13 +110,13 @@
         border-radius: 0.25rem;
     }
 
-        .page-link:hover {
-            z-index: 2;
-            color: #0056b3;
-            text-decoration: none;
-            background-color: burlywood;
-            border-color: #dee2e6;
-        }
+    .page-link:hover {
+        z-index: 2;
+        color: #0056b3;
+        text-decoration: none;
+        background-color: burlywood;
+        border-color: #dee2e6;
+    }
 
     .page-item.active .page-link {
         z-index: 1;
@@ -181,8 +181,8 @@
                         <a href="@Url.Action("ChiTietSanPham", "SanPham", new { @maSanPham = product.SanPhamID })" title="Xem chi tiết">
                             <img src="~/image/Anh_tuixach/@product.HinhAnh" alt="anh1" width="600" height="400">
                         </a>
-                        <div class="name" style="text-align:center; margin-top: 20px">@product.TenSanPham</div>
-                        <div class="desc" style="font-weight: bold">@Html.FormatValue(product.Gia, "{0:#,###}")VND</div>
+                        <div class="name" style="text-align:center; margin-top: 20px;">@product.TenSanPham</div>
+                        <div class="desc" style="font-weight: bold;color: #0fd0c9">@Html.FormatValue(product.Gia, "{0:#,###}")VND</div>
                         @*<button class="btn_buy" style="text-align:center; padding: 9px 12px; background-color:antiquewhite; margin-left:50px; border-radius: 4px; border: 2px; position:relative; bottom:10px; ">
                                 <i class="bi bi-cart-fill" style=" font-weight: bold;"></i>
                                 Thêm vào giỏ hàng

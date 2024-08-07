@@ -97,7 +97,7 @@ namespace TuiXach.Controllers
             var order = new Order
             {
                 CustomerID = customer.CustomerID,
-                TrangThaiDonHang = "Đang trên đường giao hàng",
+                TrangThaiDonHang = "Đã gửi đơn hàng",
                 NgayDat = DateTime.Now
             };
             db.Orders.Add(order);
@@ -113,6 +113,7 @@ namespace TuiXach.Controllers
                     Gia = item.Gia,
                     TongTien = item.Gia * item.SoLuong,
                     HinhAnh = item.HinhAnh,
+                    SizeID = item.SizeID,
                     OrderDate = DateTime.Now
                 };
                 db.OrderDetails.Add(orderDetail);

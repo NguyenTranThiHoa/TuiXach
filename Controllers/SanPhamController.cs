@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -20,12 +21,6 @@ namespace TuiXach.Controllers
         {
             return View();
         }
-        //public ActionResult SanPham(int id)
-        //{
-        //    var products = db.SanPhams.Where(p => p.PhanLoaiID == id).OrderByDescending(p => p.Gia).ToList();
-        //    ViewBag.soluong = products.Count();
-        //    return View(products);
-        //}
 
         public ActionResult SanPham(int id)
         {
@@ -99,59 +94,57 @@ namespace TuiXach.Controllers
                         HinhAnh = product.HinhAnh,
                         SizeID = size.SizeID,
                         Size = size.Size,
-                        SoLuong = quantity
+                        SoLuong = quantity,
+                        SizeList = GetSizeList()
                     };
                     cart.Add(cartItem);
                 }
-                // Update the session cart
+
                 Session["Cart"] = cart;
             }
 
             return RedirectToAction("ViewCart", "SanPham");
         }
 
-        //[HttpPost]
-        //public ActionResult AddToCart(int sanPhamID, int sizeID, int quantity)
+        //public ActionResult ViewCart()
         //{
-        //    var product = db.SanPhams.Find(sanPhamID);
-        //    var size = db.ProductSizes.Find(sizeID);
-
-        //    if (product != null && size != null)
+        //    var cart = Session["Cart"] as List<SanPhamViewModel>;
+        //    if (cart == null)
         //    {
-        //        var cartItem = new SanPhamViewModel
-        //        {
-        //            SanPhamID = product.SanPhamID,
-        //            TenSanPham = product.TenSanPham,
-        //            Gia = product.Gia,
-        //            HinhAnh = product.HinhAnh,
-        //            SizeID = size.SizeID,
-        //            Size = size.Size,
-        //            SoLuong = quantity
-        //        };
-
-        //        var cart = Session["Cart"] as List<SanPhamViewModel>;
-        //        if (cart == null)
-        //        {
-        //            cart = new List<SanPhamViewModel>();
-        //        }
-        //        cart.Add(cartItem);
-        //        Session["Cart"] = cart;
+        //        cart = new List<SanPhamViewModel>();
         //    }
 
-        //    return RedirectToAction("ViewCart", "SanPham");
+        //    return View(cart);
         //}
-
 
         public ActionResult ViewCart()
         {
-            var cart = Session["Cart"] as List<SanPhamViewModel>;
-            if (cart == null)
+            var cart = (List<SanPhamViewModel>)Session["Cart"];
+
+            if (cart != null)
             {
-                cart = new List<SanPhamViewModel>();
+                foreach (var item in cart)
+                {
+                    item.SizeList = GetSizeList(); // Phương thức này sẽ lấy danh sách các size
+                }
             }
 
             return View(cart);
         }
+
+        private List<SelectListItem> GetSizeList()
+        {
+            // Giả sử bạn có một danh sách các size trong database
+            var sizes = db.ProductSizes.ToList();
+            var sizeList = sizes.Select(s => new SelectListItem
+            {
+                Value = s.SizeID.ToString(),
+                Text = s.Size
+            }).ToList();
+
+            return sizeList;
+        }
+
 
         [HttpPost]
         public ActionResult RemoveFromCart(int SanPhamID, int SizeID)
@@ -170,25 +163,32 @@ namespace TuiXach.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCart(int sanPhamID, int sizeID, int quantity)
+        public JsonResult UpdateCart(int sanPhamID, int sizeID, int quantity)
         {
-            var cart = Session["Cart"] as List<SanPhamViewModel>;
-            if (cart == null)
+            var cart = (List<SanPhamViewModel>)Session["Cart"];
+
+            if (cart != null)
             {
-                cart = new List<SanPhamViewModel>();
+                var cartItem = cart.FirstOrDefault(item => item.SanPhamID == sanPhamID && item.SizeID == sizeID);
+                if (cartItem != null)
+                {
+                    cartItem.SoLuong = quantity;
+                }
+                else
+                {
+                    var existingItem = cart.FirstOrDefault(item => item.SanPhamID == sanPhamID);
+                    if (existingItem != null)
+                    {
+                        existingItem.SizeID = sizeID;
+                        existingItem.Size = db.ProductSizes.FirstOrDefault(s => s.SizeID == sizeID)?.Size;
+                        existingItem.SoLuong = quantity;
+                    }
+                }
             }
-
-            var existingItem = cart.FirstOrDefault(c => c.SanPhamID == sanPhamID && c.SizeID == sizeID);
-
-            if (existingItem != null)
-            {
-                existingItem.SoLuong = quantity; // Cập nhật số lượng
-            }
-
-            Session["Cart"] = cart;
 
             return Json(new { success = true });
         }
+
 
         /***************************************************************/
         public ActionResult Search(string searchTerm, int id) 

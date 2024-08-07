@@ -17,26 +17,26 @@
 
         public int CustomerID { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập Họ tên.")]
-        //[RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Tên chỉ được chứa chữ cái và khoảng trắng.")]
+        //[Required(ErrorMessage = "Vui lòng nhập Họ tên.")]
         [StringLength(255)]
         public string FullName { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? NgaySinh { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập số điện thoại.")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Số điện thoại không được nhập chữ.")]
+        //[Required(ErrorMessage = "Vui lòng nhập số điện thoại.")]
+        //[RegularExpression(@"^\d+$", ErrorMessage = "Số điện thoại không được nhập chữ.")]
         [StringLength(15)]
         public string SoDienThoai { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
+        //[Required(ErrorMessage = "Vui lòng nhập địa chỉ.")]
         [StringLength(255)]
         public string DiaChi { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập Email.")]
         [RegularExpression(@"^[^@\s]+@gmail\.com$", ErrorMessage = "Email phải có định dạng @gmail.com.")]
         [StringLength(100)]
+        //[EmailAddress(ErrorMessage = "Email không hợp lệ")]
         public string Email { get; set; }
 
         [StringLength(255)]

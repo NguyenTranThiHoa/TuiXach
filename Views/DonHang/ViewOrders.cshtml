@@ -15,7 +15,8 @@
 
     h2 {
         text-align: center;
-        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-family: Cambria;
     }
 
     .table th, .table td {
@@ -53,7 +54,7 @@
                     <div class="mb-2"><strong>Số điện thoại:</strong> @Model.Phone</div>
                     <div class="mb-2"><strong>Email:</strong> @Model.Email</div>
                 </div>
-                <p style="color: coral; font-weight: bold">Chúng tôi sẽ giao hàng sớm nhất cho sản phẩm của bạn! Yên tâm chờ đợi là hạnh phúc nhé!</p>
+                <p style="color:burlywood; font-weight: bold ">Chúng tôi sẽ giao hàng sớm nhất cho sản phẩm của bạn! Yên tâm chờ đợi là hạnh phúc nhé!</p>
                 <div class="button_com">
                     <a class="btn btn-warning" href="@Url.Action("ListOrder", "DonHang")">Quay trở lại</a>
                 </div>
@@ -86,6 +87,7 @@
                                 <td>@Html.FormatValue(Model.CartItems[i].Gia, "{0:#,###}") VND</td>
                                 <td>@Model.CartItems[i].SoLuong</td>
                                 <td>@Html.FormatValue(Model.CartItems[i].Gia * Model.CartItems[i].SoLuong, "{0:#,###}") VND</td>
+
                             </tr>
                         }
                     </tbody>

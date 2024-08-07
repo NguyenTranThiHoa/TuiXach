@@ -46,7 +46,7 @@
         font-size: 20px;
         font-weight: bold;
     }
-    /************************/
+
     .quantity-wrapper {
         display: flex;
         align-items: center;
@@ -118,7 +118,7 @@
                 </p>
             </div>
             <div class="nut" style="padding: 5px 0px">
-                @using (Html.BeginForm("AddToCart", "SanPham", FormMethod.Post))
+                @using (Html.BeginForm("AddToCart", "SanPham", FormMethod.Post, new { id = "addToCartForm" }))
                 {
                     <input type="hidden" name="sanPhamID" value="@Model.SanPhamID" />
                     <div class="Size">
@@ -147,17 +147,29 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector('form');
+        const form = document.getElementById('addToCartForm');
+        const quantityInput = document.getElementById('quantity');
+
         form.addEventListener('submit', function (event) {
             const sizeSelected = document.querySelector('input[name="sizeID"]:checked');
             if (!sizeSelected) {
                 event.preventDefault(); // Ngăn chặn gửi biểu mẫu
-                alert("Vui lòng chọn size cho sản phẩm.");
+                alert("Vui lòng chọn size trước khi thêm vào giỏ hàng.");
+            }
+        });
+
+        quantityInput.addEventListener('input', function (event) {
+            const value = parseInt(event.target.value, 10);
+
+            if (isNaN(value) || value < 1) {
+                event.target.value = 1;
+            }
+        });
+
+        quantityInput.addEventListener('keypress', function (event) {
+            if (event.which < 48 || event.which > 57) {
+                event.preventDefault();
             }
         });
     });
 </script>
-
-
-
-

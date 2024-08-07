@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLAdmin.Areas.Admin.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -60,6 +61,47 @@ namespace TuiXach.Controllers
 
         //    return View(orders);
         //}
+        //public ActionResult ViewOrders(int id)
+        //{
+        //    try
+        //    {
+        //        var order = db.Orders
+        //                      .Include("Customer")
+        //                      .Include("OrderDetails.SanPham")
+        //                      .FirstOrDefault(o => o.OrderID == id);
+
+        //        if (order == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+
+        //        var viewModel = new CheckoutViewModel
+        //        {
+        //            FullName = order.Customer?.FullName,
+        //            Address = order.Customer?.DiaChi,
+        //            Phone = order.Customer?.SoDienThoai,
+        //            Email = order.Customer?.Email,
+        //            CartItems = order.OrderDetails.Select(od => new SanPhamViewModel
+        //            {
+        //                SanPhamID = od.SanPhamID ?? 0,
+        //                TenSanPham = od.SanPham?.TenSanPham,
+        //                Gia = od.Gia,
+        //                HinhAnh = od.HinhAnh,
+        //                //Size = od.Size
+        //                SoLuong = od.SoLuong ?? 0
+        //            }).ToList(),
+        //            TongTien = order.OrderDetails.Sum(od => (od.Gia ?? 0) * (od.SoLuong ?? 0))
+        //        };
+
+        //        return View(viewModel);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "An error occurred while processing your request.");
+        //    }
+        //}
+
         public ActionResult ViewOrders(int id)
         {
             try
@@ -67,6 +109,7 @@ namespace TuiXach.Controllers
                 var order = db.Orders
                               .Include("Customer")
                               .Include("OrderDetails.SanPham")
+                              .Include("OrderDetails.ProductSize")  // Include ProductSize for Size information
                               .FirstOrDefault(o => o.OrderID == id);
 
                 if (order == null)
@@ -86,7 +129,7 @@ namespace TuiXach.Controllers
                         TenSanPham = od.SanPham?.TenSanPham,
                         Gia = od.Gia,
                         HinhAnh = od.HinhAnh,
-                        //Size = od.Size
+                        Size = od.ProductSize?.Size,  // Retrieve size description from ProductSize
                         SoLuong = od.SoLuong ?? 0
                     }).ToList(),
                     TongTien = order.OrderDetails.Sum(od => (od.Gia ?? 0) * (od.SoLuong ?? 0))

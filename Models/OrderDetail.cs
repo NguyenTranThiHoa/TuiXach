@@ -24,10 +24,14 @@ namespace TuiXach.Models
         [StringLength(255)]
         public string HinhAnh { get; set; }
 
+        public int? SizeID { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         public virtual Order Order { get; set; }
 
         public virtual SanPham SanPham { get; set; }
+
+        public virtual ProductSize ProductSize { get; set; }  // Add this line
     }
 }
